@@ -85,8 +85,8 @@ This plan implements the Logika Decoración website — a visual digital catalog
     - Run jest-axe on Header, Footer, WhatsAppButton for WCAG AA compliance
     - _Requirements: 7.1–7.5, 8.1–8.5, 6.1–6.5, 13.1_
 
-- [ ] 3. WhatsApp integration
-  - [ ] 3.1 Implement buildWhatsAppUrl utility with full test coverage
+- [x] 3. WhatsApp integration
+  - [x] 3.1 Implement buildWhatsAppUrl utility with full test coverage
     - Implement `buildWhatsAppUrl(phone: string, message: string): string` in `components/ui/WhatsAppLink.tsx`
     - Ensure proper URL encoding of message parameter via `encodeURIComponent`
     - Use `WHATSAPP_PHONE` from environment/constants
