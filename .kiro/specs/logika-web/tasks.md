@@ -40,8 +40,8 @@ This plan implements the Logika Decoración website — a visual digital catalog
     - Create `jest.setup.ts` importing `@testing-library/jest-dom`
     - _Requirements: (testing infrastructure)_
 
-- [ ] 2. Layout components (Header, Footer, WhatsApp floating button)
-  - [~] 2.1 Implement Header component
+- [x] 2. Layout components (Header, Footer, WhatsApp floating button)
+  - [ ] 2.1 Implement Header component
     - Create `components/layout/Header.tsx` as a Client Component (`'use client'`)
     - Dark background (`#212121`), centered logo, nav links (Inicio, Catálogo, Nosotros, Contacto)
     - Add Instagram and WhatsApp social icons
@@ -49,13 +49,13 @@ This plan implements the Logika Decoración website — a visual digital catalog
     - Ensure keyboard navigability and semantic HTML (`<nav>`, `<header>`)
     - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5, 13.3, 13.4_
 
-  - [~] 2.2 Implement Footer component
+  - [ ] 2.2 Implement Footer component
     - Create `components/layout/Footer.tsx` as a Server Component
     - Display logo, brief company description, matching nav links, social icons (Instagram, WhatsApp)
     - Include contact information and copyright notice
     - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.5_
 
-  - [~] 2.3 Implement WhatsAppButton floating component
+  - [ ] 2.3 Implement WhatsAppButton floating component
     - Create `components/layout/WhatsAppButton.tsx` as a Client Component
     - Fixed position `bottom-6 right-6`, `z-50`
     - Opens `https://wa.me/{phone}?text={encodedMessage}` in new tab with default message
@@ -63,12 +63,12 @@ This plan implements the Logika Decoración website — a visual digital catalog
     - Ensure no overlap with content on mobile (< 768px)
     - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5, 13.3_
 
-  - [~] 2.4 Create shared UI utilities
+  - [ ] 2.4 Create shared UI utilities
     - Create `components/ui/LazyImage.tsx` — wrapper around `next/image` enforcing `loading="lazy"`
     - Create `components/ui/WhatsAppLink.tsx` — `buildWhatsAppUrl(phone, message)` pure function
     - _Requirements: 11.3, 6.2_
 
-  - [~] 2.5 Set up root layout with Header, Footer, and WhatsAppButton
+  - [ ] 2.5 Set up root layout with Header, Footer, and WhatsAppButton
     - Create `app/layout.tsx` with global font loading, Header, Footer, WhatsAppButton
     - Inject Schema.org LocalBusiness JSON-LD structured data (name, address, geo coordinates, phone, type)
     - Set base metadata (default title, description)
@@ -82,7 +82,7 @@ This plan implements the Logika Decoración website — a visual digital catalog
     - _Requirements: 7.1–7.5, 8.1–8.5, 6.1–6.5, 13.1_
 
 - [ ] 3. WhatsApp integration
-  - [~] 3.1 Implement buildWhatsAppUrl utility with full test coverage
+  - [ ] 3.1 Implement buildWhatsAppUrl utility with full test coverage
     - Implement `buildWhatsAppUrl(phone: string, message: string): string` in `components/ui/WhatsAppLink.tsx`
     - Ensure proper URL encoding of message parameter via `encodeURIComponent`
     - Use `WHATSAPP_PHONE` from environment/constants
@@ -93,30 +93,30 @@ This plan implements the Logika Decoración website — a visual digital catalog
     - For any product `whatsappMsg` string, the generated URL must contain `encodeURIComponent(whatsappMsg)`
     - **Validates: Requirements 3.6**
 
-- [~] 4. Checkpoint - Ensure layout and WhatsApp integration work
+- [ ] 4. Checkpoint - Ensure layout and WhatsApp integration work
   - Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 5. Filterable product catalog
-  - [~] 5.1 Implement CategoryFilter component
+  - [ ] 5.1 Implement CategoryFilter component
     - Create `components/catalog/CategoryFilter.tsx` as a Client Component
     - Horizontal scrollable pill row on mobile, vertical sidebar on desktop
     - "Todos" option to clear filter
     - Update URL via `router.push` with `?categoria=<slug>` for shareable URLs
     - _Requirements: 2.1, 2.2, 2.4_
 
-  - [~] 5.2 Implement ProductCard component
+  - [ ] 5.2 Implement ProductCard component
     - Create `components/catalog/ProductCard.tsx` as a Server Component
     - Display product image (lazy loaded via `next/image`, WebP format), product name, description truncated to 120 chars (`line-clamp-3`)
     - Entire card wrapped in `<a href="/catalogo/[slug]">` with descriptive alt text on image
     - _Requirements: 2.3, 2.5, 11.3, 13.2_
 
-  - [~] 5.3 Implement ProductGrid component
+  - [ ] 5.3 Implement ProductGrid component
     - Create `components/catalog/ProductGrid.tsx` as a Server Component
     - CSS grid: `grid-cols-1 sm:grid-cols-2 lg:grid-cols-3`
     - Show empty state message when no products match filter
     - _Requirements: 2.1, 2.6_
 
-  - [~] 5.4 Create catalog page (`app/catalogo/page.tsx`)
+  - [ ] 5.4 Create catalog page (`app/catalogo/page.tsx`)
     - ISR with `revalidate: 3600`
     - Read `?categoria` search param, fetch products accordingly
     - Compose CategoryFilter + ProductGrid
@@ -135,7 +135,7 @@ This plan implements the Logika Decoración website — a visual digital catalog
     - **Validates: Requirements 2.3, 2.5, 3.1**
 
 - [ ] 6. Individual product page
-  - [~] 6.1 Implement ProductGallery component
+  - [ ] 6.1 Implement ProductGallery component
     - Create `components/product/ProductGallery.tsx` as a Client Component
     - Thumbnail strip on left (vertical), large main image center
     - `useState` for selected image index
@@ -143,20 +143,20 @@ This plan implements the Logika Decoración website — a visual digital catalog
     - Keyboard navigation (left/right arrows)
     - _Requirements: 3.3, 3.4, 13.3_
 
-  - [~] 6.2 Create product detail page (`app/catalogo/[slug]/page.tsx`)
+  - [ ] 6.2 Create product detail page (`app/catalogo/[slug]/page.tsx`)
     - ISR with `revalidate: 3600` + `generateStaticParams` for known slugs
     - Fetch product via `getProduct(slug)`, call `notFound()` if null
     - Display: ProductGallery, product name, full description, materials list
     - WhatsApp CTA button using product's `whatsappMsg` field via `buildWhatsAppUrl`
     - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5, 3.6_
 
-  - [~] 6.3 Implement product page SEO metadata
+  - [ ] 6.3 Implement product page SEO metadata
     - Export `generateMetadata` function with product name in title (≤ 60 chars), description (≤ 160 chars)
     - Include Open Graph tags (og:title, og:description, og:image, og:url, og:type)
     - Include canonical URL
     - _Requirements: 3.7, 9.1, 9.3, 9.5_
 
-  - [~] 6.4 Create custom 404 page (`app/not-found.tsx`)
+  - [ ] 6.4 Create custom 404 page (`app/not-found.tsx`)
     - Spanish-language "Página no encontrada" message
     - Link back to `/catalogo`
     - _Requirements: 3.2_
@@ -167,29 +167,29 @@ This plan implements the Logika Decoración website — a visual digital catalog
     - **Property 6: Product page metadata contains product name and description**
     - **Validates: Requirements 3.5, 3.6, 3.7**
 
-- [~] 7. Checkpoint - Ensure catalog and product pages work
+- [ ] 7. Checkpoint - Ensure catalog and product pages work
   - Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 8. Home page
-  - [~] 8.1 Implement HeroSlider component
+  - [ ] 8.1 Implement HeroSlider component
     - Create `components/home/HeroSlider.tsx` as a Client Component
     - Full viewport height (`h-screen`), navigation arrows, indicator dots
     - Auto-advance every 5 seconds, pause on hover
     - First slide uses `priority` on `next/image` (LCP optimization)
     - _Requirements: 1.1, 11.1_
 
-  - [~] 8.2 Implement CategorySection component
+  - [ ] 8.2 Implement CategorySection component
     - Create `components/home/CategorySection.tsx` as a Server Component
     - Left column: text links to `/catalogo?categoria=<slug>` for all 7 categories
     - Right column: asymmetric mosaic grid of lifestyle photos (CSS grid)
     - _Requirements: 1.2, 1.5_
 
-  - [~] 8.3 Implement DifferentiatorsSection component
+  - [ ] 8.3 Implement DifferentiatorsSection component
     - Create `components/home/DifferentiatorsSection.tsx` as a Server Component
     - At least 3 differentiator items, each with icon, heading, body text
     - _Requirements: 1.3_
 
-  - [~] 8.4 Create home page (`app/page.tsx`)
+  - [ ] 8.4 Create home page (`app/page.tsx`)
     - ISR with `revalidate: 3600`
     - Compose HeroSlider, CategorySection, DifferentiatorsSection
     - Fetch featured products for slider from Firestore
@@ -203,7 +203,7 @@ This plan implements the Logika Decoración website — a visual digital catalog
     - _Requirements: 1.1, 1.2, 1.3_
 
 - [ ] 9. About page
-  - [~] 9.1 Create about page (`app/nosotros/page.tsx`)
+  - [ ] 9.1 Create about page (`app/nosotros/page.tsx`)
     - Static rendering (no `revalidate`)
     - Company history section with founding context and brand evolution
     - Manufacturing process description with materials: high-density foams, selected woods, premium fabrics, precision stitching
@@ -214,7 +214,7 @@ This plan implements the Logika Decoración website — a visual digital catalog
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 9.1, 9.3, 9.5_
 
 - [ ] 10. Contact page with form
-  - [~] 10.1 Implement ContactForm component
+  - [ ] 10.1 Implement ContactForm component
     - Create `components/contact/ContactForm.tsx` as a Client Component
     - Fields: name (max 100 chars), phone (10 digits starting with 3), productInterest (dropdown with 7 categories + "Otro"), message (max 500 chars)
     - Client-side validation on submit, field-level error display
@@ -223,14 +223,14 @@ This plan implements the Logika Decoración website — a visual digital catalog
     - Show retry-able error message on Server Action failure
     - _Requirements: 5.3, 5.4, 5.5, 5.6_
 
-  - [~] 10.2 Implement contact form Server Action
+  - [ ] 10.2 Implement contact form Server Action
     - Create Server Action in `app/contacto/actions.ts`
     - Validate input server-side (same rules: name max 100, phone 10 digits starting with 3, message max 500)
     - Call `saveContact(data)` from Firestore layer
     - Return typed `ActionResult` (`{ status: "success" } | { status: "error"; message: string }`)
     - _Requirements: 5.4, 5.6, 14.2_
 
-  - [~] 10.3 Create contact page (`app/contacto/page.tsx`)
+  - [ ] 10.3 Create contact page (`app/contacto/page.tsx`)
     - Static rendering
     - Compose ContactForm, WhatsApp Business direct button, social media links (Instagram)
     - Generate metadata (title ≤ 60 chars, description ≤ 160 chars, OG tags, canonical)
@@ -249,18 +249,18 @@ This plan implements the Logika Decoración website — a visual digital catalog
     - Run jest-axe for WCAG AA compliance
     - _Requirements: 5.3, 5.4, 5.5, 13.1_
 
-- [~] 11. Checkpoint - Ensure all pages render correctly
+- [ ] 11. Checkpoint - Ensure all pages render correctly
   - Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 12. SEO implementation
-  - [~] 12.1 Create dynamic sitemap (`app/sitemap.ts`)
+  - [ ] 12.1 Create dynamic sitemap (`app/sitemap.ts`)
     - ISR with `revalidate: 86400` (daily)
     - Include static routes (`/`, `/catalogo`, `/nosotros`, `/contacto`)
     - Include all product URLs from Firestore (`/catalogo/[slug]`)
     - Set appropriate `changeFrequency` and `priority` values
     - _Requirements: 9.2_
 
-  - [~] 12.2 Create robots.txt (`app/robots.ts`)
+  - [ ] 12.2 Create robots.txt (`app/robots.ts`)
     - Allow all crawlers, reference sitemap URL
     - _Requirements: 9.2_
 
@@ -272,33 +272,33 @@ This plan implements the Logika Decoración website — a visual digital catalog
     - **Validates: Requirements 9.1, 9.2, 9.3, 9.5**
 
 - [ ] 13. Performance optimization and final integration
-  - [~] 13.1 Optimize images and loading strategy
+  - [ ] 13.1 Optimize images and loading strategy
     - Verify `next/image` configured for WebP with appropriate `sizes` attributes
     - Confirm `priority` on LCP element (hero image)
     - Confirm `loading="lazy"` on all below-fold images via `LazyImage` component
     - Verify no client-side Firebase SDK in bundle (check bundle size)
     - _Requirements: 11.1, 11.2, 11.3, 11.4_
 
-  - [~] 13.2 Verify responsive design across breakpoints
+  - [ ] 13.2 Verify responsive design across breakpoints
     - Confirm mobile-first layouts work at 320px, 768px, 1024px, 1440px, 2560px
     - Verify touch-friendly targets on mobile (min 44x44px)
     - Verify `max-w-7xl mx-auto px-4 sm:px-6 lg:px-8` container pattern
     - _Requirements: 10.1, 10.2, 10.3_
 
-  - [~] 13.3 Accessibility audit
+  - [ ] 13.3 Accessibility audit
     - Run jest-axe across all page-level components
     - Verify color contrast ratios meet WCAG AA (4.5:1 normal text, 3:1 large text)
     - Confirm alt text on all images, semantic HTML, keyboard navigation
     - Verify all interactive elements are keyboard accessible
     - _Requirements: 13.1, 13.2, 13.3, 13.4_
 
-  - [~] 13.4 HTTPS and security verification
+  - [ ] 13.4 HTTPS and security verification
     - Confirm Vercel serves all pages over HTTPS
     - Confirm HTTP → HTTPS redirect is active
     - Confirm no Firebase credentials exposed in client bundle
     - _Requirements: 14.1, 14.2, 14.3_
 
-- [~] 14. Final checkpoint - Ensure all tests pass
+- [ ] 14. Final checkpoint - Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
 ## Notes
