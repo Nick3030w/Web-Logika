@@ -40,7 +40,11 @@ This plan implements the Logika Decoración website — a visual digital catalog
     - Create `jest.setup.ts` importing `@testing-library/jest-dom`
     - _Requirements: (testing infrastructure)_
 
+<<<<<<< Updated upstream
 - [x] 2. Layout components (Header, Footer, WhatsApp floating button)
+=======
+- [ ] 2. Layout components (Header, Footer, WhatsApp floating button)
+>>>>>>> Stashed changes
   - [ ] 2.1 Implement Header component
     - Create `components/layout/Header.tsx` as a Client Component (`'use client'`)
     - Dark background (`#212121`), centered logo, nav links (Inicio, Catálogo, Nosotros, Contacto)
