@@ -40,12 +40,8 @@ This plan implements the Logika Decoración website — a visual digital catalog
     - Create `jest.setup.ts` importing `@testing-library/jest-dom`
     - _Requirements: (testing infrastructure)_
 
-<<<<<<< Updated upstream
 - [x] 2. Layout components (Header, Footer, WhatsApp floating button)
-=======
-- [ ] 2. Layout components (Header, Footer, WhatsApp floating button)
->>>>>>> Stashed changes
-  - [ ] 2.1 Implement Header component
+  - [x] 2.1 Implement Header component
     - Create `components/layout/Header.tsx` as a Client Component (`'use client'`)
     - Dark background (`#212121`), centered logo, nav links (Inicio, Catálogo, Nosotros, Contacto)
     - Add Instagram and WhatsApp social icons
@@ -53,13 +49,13 @@ This plan implements the Logika Decoración website — a visual digital catalog
     - Ensure keyboard navigability and semantic HTML (`<nav>`, `<header>`)
     - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5, 13.3, 13.4_
 
-  - [ ] 2.2 Implement Footer component
+  - [x] 2.2 Implement Footer component
     - Create `components/layout/Footer.tsx` as a Server Component
     - Display logo, brief company description, matching nav links, social icons (Instagram, WhatsApp)
     - Include contact information and copyright notice
     - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.5_
 
-  - [ ] 2.3 Implement WhatsAppButton floating component
+  - [x] 2.3 Implement WhatsAppButton floating component
     - Create `components/layout/WhatsAppButton.tsx` as a Client Component
     - Fixed position `bottom-6 right-6`, `z-50`
     - Opens `https://wa.me/{phone}?text={encodedMessage}` in new tab with default message
@@ -67,18 +63,18 @@ This plan implements the Logika Decoración website — a visual digital catalog
     - Ensure no overlap with content on mobile (< 768px)
     - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5, 13.3_
 
-  - [ ] 2.4 Create shared UI utilities
+  - [x] 2.4 Create shared UI utilities
     - Create `components/ui/LazyImage.tsx` — wrapper around `next/image` enforcing `loading="lazy"`
     - Create `components/ui/WhatsAppLink.tsx` — `buildWhatsAppUrl(phone, message)` pure function
     - _Requirements: 11.3, 6.2_
 
-  - [ ] 2.5 Set up root layout with Header, Footer, and WhatsAppButton
+  - [x] 2.5 Set up root layout with Header, Footer, and WhatsAppButton
     - Create `app/layout.tsx` with global font loading, Header, Footer, WhatsAppButton
     - Inject Schema.org LocalBusiness JSON-LD structured data (name, address, geo coordinates, phone, type)
     - Set base metadata (default title, description)
     - _Requirements: 9.4, 6.1_
 
-  - [ ]* 2.6 Write unit tests for layout components
+  - [x]* 2.6 Write unit tests for layout components
     - Test Header: hamburger toggle, nav links render, social icons present, keyboard navigation
     - Test WhatsAppButton: `aria-label` present, `href` matches expected URL format, fixed position
     - Test Footer: logo, nav links, social icons, copyright rendered
@@ -92,12 +88,12 @@ This plan implements the Logika Decoración website — a visual digital catalog
     - Use `WHATSAPP_PHONE` from environment/constants
     - _Requirements: 6.2, 3.6_
 
-  - [ ]* 3.2 Write property test for WhatsApp URL encoding (Property 5)
+  - [x]* 3.2 Write property test for WhatsApp URL encoding (Property 5)
     - **Property 5: WhatsApp URL encodes product message correctly**
     - For any product `whatsappMsg` string, the generated URL must contain `encodeURIComponent(whatsappMsg)`
     - **Validates: Requirements 3.6**
 
-- [ ] 4. Checkpoint - Ensure layout and WhatsApp integration work
+- [x] 4. Checkpoint - Ensure layout and WhatsApp integration work
   - Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 5. Filterable product catalog
