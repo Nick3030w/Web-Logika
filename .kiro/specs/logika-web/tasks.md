@@ -96,27 +96,27 @@ This plan implements the Logika Decoración website — a visual digital catalog
 - [x] 4. Checkpoint - Ensure layout and WhatsApp integration work
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 5. Filterable product catalog
-  - [ ] 5.1 Implement CategoryFilter component
+- [x] 5. Filterable product catalog
+  - [x] 5.1 Implement CategoryFilter component
     - Create `components/catalog/CategoryFilter.tsx` as a Client Component
     - Horizontal scrollable pill row on mobile, vertical sidebar on desktop
     - "Todos" option to clear filter
     - Update URL via `router.push` with `?categoria=<slug>` for shareable URLs
     - _Requirements: 2.1, 2.2, 2.4_
 
-  - [ ] 5.2 Implement ProductCard component
+  - [x] 5.2 Implement ProductCard component
     - Create `components/catalog/ProductCard.tsx` as a Server Component
     - Display product image (lazy loaded via `next/image`, WebP format), product name, description truncated to 120 chars (`line-clamp-3`)
     - Entire card wrapped in `<a href="/catalogo/[slug]">` with descriptive alt text on image
     - _Requirements: 2.3, 2.5, 11.3, 13.2_
 
-  - [ ] 5.3 Implement ProductGrid component
+  - [x] 5.3 Implement ProductGrid component
     - Create `components/catalog/ProductGrid.tsx` as a Server Component
     - CSS grid: `grid-cols-1 sm:grid-cols-2 lg:grid-cols-3`
     - Show empty state message when no products match filter
     - _Requirements: 2.1, 2.6_
 
-  - [ ] 5.4 Create catalog page (`app/catalogo/page.tsx`)
+  - [x] 5.4 Create catalog page (`app/catalogo/page.tsx`)
     - ISR with `revalidate: 3600`
     - Read `?categoria` search param, fetch products accordingly
     - Compose CategoryFilter + ProductGrid
@@ -134,8 +134,8 @@ This plan implements the Logika Decoración website — a visual digital catalog
     - For any product, card contains name, image, description ≤ 120 chars, and href equals `/catalogo/${product.id}`
     - **Validates: Requirements 2.3, 2.5, 3.1**
 
-- [ ] 6. Individual product page
-  - [ ] 6.1 Implement ProductGallery component
+- [x] 6. Individual product page
+  - [x] 6.1 Implement ProductGallery component
     - Create `components/product/ProductGallery.tsx` as a Client Component
     - Thumbnail strip on left (vertical), large main image center
     - `useState` for selected image index
@@ -143,20 +143,20 @@ This plan implements the Logika Decoración website — a visual digital catalog
     - Keyboard navigation (left/right arrows)
     - _Requirements: 3.3, 3.4, 13.3_
 
-  - [ ] 6.2 Create product detail page (`app/catalogo/[slug]/page.tsx`)
+  - [x] 6.2 Create product detail page (`app/catalogo/[slug]/page.tsx`)
     - ISR with `revalidate: 3600` + `generateStaticParams` for known slugs
     - Fetch product via `getProduct(slug)`, call `notFound()` if null
     - Display: ProductGallery, product name, full description, materials list
     - WhatsApp CTA button using product's `whatsappMsg` field via `buildWhatsAppUrl`
     - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5, 3.6_
 
-  - [ ] 6.3 Implement product page SEO metadata
+  - [x] 6.3 Implement product page SEO metadata
     - Export `generateMetadata` function with product name in title (≤ 60 chars), description (≤ 160 chars)
     - Include Open Graph tags (og:title, og:description, og:image, og:url, og:type)
     - Include canonical URL
     - _Requirements: 3.7, 9.1, 9.3, 9.5_
 
-  - [ ] 6.4 Create custom 404 page (`app/not-found.tsx`)
+  - [x] 6.4 Create custom 404 page (`app/not-found.tsx`)
     - Spanish-language "Página no encontrada" message
     - Link back to `/catalogo`
     - _Requirements: 3.2_
@@ -167,29 +167,29 @@ This plan implements the Logika Decoración website — a visual digital catalog
     - **Property 6: Product page metadata contains product name and description**
     - **Validates: Requirements 3.5, 3.6, 3.7**
 
-- [ ] 7. Checkpoint - Ensure catalog and product pages work
+- [x] 7. Checkpoint - Ensure catalog and product pages work
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 8. Home page
-  - [ ] 8.1 Implement HeroSlider component
+- [x] 8. Home page
+  - [x] 8.1 Implement HeroSlider component
     - Create `components/home/HeroSlider.tsx` as a Client Component
     - Full viewport height (`h-screen`), navigation arrows, indicator dots
     - Auto-advance every 5 seconds, pause on hover
     - First slide uses `priority` on `next/image` (LCP optimization)
     - _Requirements: 1.1, 11.1_
 
-  - [ ] 8.2 Implement CategorySection component
+  - [x] 8.2 Implement CategorySection component
     - Create `components/home/CategorySection.tsx` as a Server Component
     - Left column: text links to `/catalogo?categoria=<slug>` for all 7 categories
     - Right column: asymmetric mosaic grid of lifestyle photos (CSS grid)
     - _Requirements: 1.2, 1.5_
 
-  - [ ] 8.3 Implement DifferentiatorsSection component
+  - [x] 8.3 Implement DifferentiatorsSection component
     - Create `components/home/DifferentiatorsSection.tsx` as a Server Component
     - At least 3 differentiator items, each with icon, heading, body text
     - _Requirements: 1.3_
 
-  - [ ] 8.4 Create home page (`app/page.tsx`)
+  - [x] 8.4 Create home page (`app/page.tsx`)
     - ISR with `revalidate: 3600`
     - Compose HeroSlider, CategorySection, DifferentiatorsSection
     - Fetch featured products for slider from Firestore
