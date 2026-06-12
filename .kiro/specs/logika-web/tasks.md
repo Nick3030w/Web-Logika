@@ -202,8 +202,8 @@ This plan implements the Logika Decoración website — a visual digital catalog
     - Test DifferentiatorsSection: renders ≥ 3 items with headings
     - _Requirements: 1.1, 1.2, 1.3_
 
-- [ ] 9. About page
-  - [ ] 9.1 Create about page (`app/nosotros/page.tsx`)
+- [x] 9. About page
+  - [x] 9.1 Create about page (`app/nosotros/page.tsx`)
     - Static rendering (no `revalidate`)
     - Company history section with founding context and brand evolution
     - Manufacturing process description with materials: high-density foams, selected woods, premium fabrics, precision stitching
