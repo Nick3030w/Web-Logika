@@ -213,8 +213,8 @@ This plan implements the Logika Decoración website — a visual digital catalog
     - Generate metadata (title ≤ 60 chars, description ≤ 160 chars, OG tags, canonical)
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 9.1, 9.3, 9.5_
 
-- [ ] 10. Contact page with form
-  - [ ] 10.1 Implement ContactForm component
+- [x] 10. Contact page with form
+  - [x] 10.1 Implement ContactForm component
     - Create `components/contact/ContactForm.tsx` as a Client Component
     - Fields: name (max 100 chars), phone (10 digits starting with 3), productInterest (dropdown with 7 categories + "Otro"), message (max 500 chars)
     - Client-side validation on submit, field-level error display
@@ -223,14 +223,14 @@ This plan implements the Logika Decoración website — a visual digital catalog
     - Show retry-able error message on Server Action failure
     - _Requirements: 5.3, 5.4, 5.5, 5.6_
 
-  - [ ] 10.2 Implement contact form Server Action
+  - [x] 10.2 Implement contact form Server Action
     - Create Server Action in `app/contacto/actions.ts`
     - Validate input server-side (same rules: name max 100, phone 10 digits starting with 3, message max 500)
     - Call `saveContact(data)` from Firestore layer
     - Return typed `ActionResult` (`{ status: "success" } | { status: "error"; message: string }`)
     - _Requirements: 5.4, 5.6, 14.2_
 
-  - [ ] 10.3 Create contact page (`app/contacto/page.tsx`)
+  - [x] 10.3 Create contact page (`app/contacto/page.tsx`)
     - Static rendering
     - Compose ContactForm, WhatsApp Business direct button, social media links (Instagram)
     - Generate metadata (title ≤ 60 chars, description ≤ 160 chars, OG tags, canonical)
