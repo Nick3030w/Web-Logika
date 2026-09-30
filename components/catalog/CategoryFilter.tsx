@@ -10,39 +10,38 @@ export default function CategoryFilter() {
   const activeCategory = searchParams.get('categoria') as CategorySlug | null;
 
   const handleFilter = (slug: CategorySlug | null) => {
-    if (slug) {
-      router.push(`/catalogo?categoria=${slug}`);
-    } else {
-      router.push('/catalogo');
-    }
+    router.push(slug ? `/catalogo?categoria=${slug}` : '/catalogo');
   };
 
   return (
     <nav aria-label="Filtrar por categoría">
-      <div className="flex flex-wrap gap-2 md:flex-col md:gap-1">
+      <p className="mb-4 hidden text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-text-muted md:block">
+        Categorías
+      </p>
+      <div className="flex gap-2 overflow-x-auto pb-2 md:flex-col md:overflow-visible md:pb-0">
         <button
           onClick={() => handleFilter(null)}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 
-            ${!activeCategory
-              ? 'bg-accent text-white'
-              : 'bg-bg-subtle text-text-muted hover:bg-gray-200'
-            }`}
+          className={`min-h-11 flex-shrink-0 rounded-full px-4 py-2 text-left text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-accent ${
+            !activeCategory
+              ? 'bg-primary text-white'
+              : 'bg-white text-text-muted hover:bg-bg-subtle hover:text-primary'
+          }`}
           aria-pressed={!activeCategory}
         >
           Todos
         </button>
-        {CATEGORIES.map((cat) => (
+        {CATEGORIES.map((category) => (
           <button
-            key={cat.slug}
-            onClick={() => handleFilter(cat.slug)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200
-              ${activeCategory === cat.slug
-                ? 'bg-accent text-white'
-                : 'bg-bg-subtle text-text-muted hover:bg-gray-200'
-              }`}
-            aria-pressed={activeCategory === cat.slug}
+            key={category.slug}
+            onClick={() => handleFilter(category.slug)}
+            className={`min-h-11 flex-shrink-0 rounded-full px-4 py-2 text-left text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-accent ${
+              activeCategory === category.slug
+                ? 'bg-primary text-white'
+                : 'bg-white text-text-muted hover:bg-bg-subtle hover:text-primary'
+            }`}
+            aria-pressed={activeCategory === category.slug}
           >
-            {cat.name}
+            {category.name}
           </button>
         ))}
       </div>

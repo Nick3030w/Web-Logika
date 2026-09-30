@@ -1,0 +1,17 @@
+{
+  "name": "Sofá Oslo Gris",
+  "category": "sofas",
+  "description": "Sofá de tres puestos con estructura en madera seleccionada, espuma de alta densidad y tapizado en tela de alta resistencia. Se puede fabricar en otras medidas y acabados.",
+  "materials": [
+    "Espuma de alta densidad",
+    "Madera seleccionada",
+    "Tela de alta resistencia"
+  ],
+  "featured": true,
+  "salesMode": "whatsapp",
+  "price": null,
+  "dimensions": "2.10 m ancho x 0.90 m profundidad x 0.85 m alto",
+  "leadTime": "15 días hábiles",
+  "customizable": true,
+  "whatsappMsg": "Hola Logika, me interesa el Sofá Oslo Gris."
+}

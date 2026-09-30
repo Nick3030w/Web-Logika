@@ -1,101 +1,74 @@
-import { Metadata } from 'next';
-import { MessageCircle } from 'lucide-react';
+import type { Metadata } from 'next';
+import { CalendarDays, MessagesSquare as Instagram, MapPin, MessageCircle } from 'lucide-react';
 import ContactForm from '@/components/contact/ContactForm';
 import { buildWhatsAppUrl } from '@/components/ui/WhatsAppLink';
-import { DEFAULT_WHATSAPP_MSG } from '@/constants/whatsapp';
+import { BUSINESS, CUSTOM_QUOTE_MESSAGE, WORKSHOP_VISIT_MESSAGE } from '@/constants/business';
 
 export const metadata: Metadata = {
-  title: 'Contacto | Logika Decoración',
+  title: 'Contacto y cotizaciones',
   description:
-    'Contáctanos para cotizar tus muebles a medida. Escríbenos por WhatsApp o llena el formulario. Bogotá, Colombia.',
-  openGraph: {
-    title: 'Contacto | Logika Decoración',
-    description:
-      'Contáctanos para cotizar tus muebles a medida en Bogotá.',
-    type: 'website',
-    url: '/contacto',
-  },
+    'Habla con Logika por WhatsApp para comprar una referencia, cotizar un mueble a medida o agendar una visita a nuestra fábrica en Bogotá.',
+  alternates: { canonical: '/contacto' },
 };
 
 export default function ContactoPage() {
-  const phone = process.env.WHATSAPP_PHONE || '573001234567';
-  const whatsappUrl = buildWhatsAppUrl(phone, DEFAULT_WHATSAPP_MSG);
+  const quoteUrl = buildWhatsAppUrl(BUSINESS.whatsappPhone, CUSTOM_QUOTE_MESSAGE);
+  const visitUrl = buildWhatsAppUrl(BUSINESS.whatsappPhone, WORKSHOP_VISIT_MESSAGE);
 
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-      <header className="text-center mb-12">
-        <h1 className="font-heading text-3xl sm:text-4xl font-bold text-primary mb-4">
-          Contáctanos
-        </h1>
-        <p className="text-text-muted text-lg max-w-xl mx-auto">
-          ¿Tienes un proyecto en mente? Escríbenos y te asesoramos sin compromiso.
-        </p>
+    <>
+      <header className="bg-primary py-14 text-white sm:py-20">
+        <div className="section-shell text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-accent">Hablemos de tu espacio</p>
+          <h1 className="mx-auto mt-4 max-w-3xl font-heading text-4xl font-semibold sm:text-6xl">
+            Una conversación es el primer paso para construir algo bien.
+          </h1>
+          <p className="mx-auto mt-5 max-w-2xl leading-7 text-white/60">
+            Comprar, cotizar o visitar el taller: toda la atención se coordina
+            directamente con nuestro equipo en un único número de WhatsApp.
+          </p>
+        </div>
       </header>
 
-      <div className="flex flex-col lg:flex-row gap-12 max-w-5xl mx-auto">
-        {/* Contact form */}
-        <div className="lg:w-3/5">
-          <div className="bg-white p-6 sm:p-8 rounded-lg border border-border shadow-sm">
-            <h2 className="font-heading text-xl font-semibold text-primary mb-6">
-              Envíanos un mensaje
-            </h2>
+      <section className="section-space">
+        <div className="section-shell grid gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:gap-12">
+          <div className="surface-card p-6 sm:p-9">
+            <p className="eyebrow">Prepara tu mensaje</p>
+            <h2 className="mt-3 font-heading text-3xl font-semibold">¿Qué mueble estás buscando?</h2>
+            <p className="mt-3 mb-7 text-sm leading-6 text-text-muted">
+              Completa estos datos y abriremos WhatsApp con el mensaje listo para enviar.
+            </p>
             <ContactForm />
           </div>
+
+          <aside className="space-y-5">
+            <a href={quoteUrl} target="_blank" rel="noopener noreferrer" className="group block rounded-[1.5rem] bg-accent p-6 text-primary shadow-soft transition hover:-translate-y-1 hover:shadow-lift focus:outline-none focus:ring-2 focus:ring-primary">
+              <MessageCircle size={25} />
+              <h3 className="mt-7 font-heading text-2xl font-semibold">Cotizar un proyecto a medida</h3>
+              <p className="mt-2 text-sm leading-6 text-primary/70">Cuéntanos tu idea y coordinamos los siguientes pasos.</p>
+            </a>
+
+            <a href={visitUrl} target="_blank" rel="noopener noreferrer" className="group block rounded-[1.5rem] bg-primary p-6 text-white shadow-soft transition hover:-translate-y-1 hover:shadow-lift focus:outline-none focus:ring-2 focus:ring-accent">
+              <CalendarDays size={25} className="text-accent" />
+              <h3 className="mt-7 font-heading text-2xl font-semibold">Agendar visita a la fábrica</h3>
+              <p className="mt-2 text-sm leading-6 text-white/60">Conoce telas, materiales y nuestra calidad de fabricación. Atención con cita previa.</p>
+            </a>
+
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+              <div className="rounded-[1.5rem] border border-border bg-bg-subtle p-5">
+                <MapPin size={21} className="text-accent-deep" />
+                <h3 className="mt-4 font-semibold">Bogotá, Colombia</h3>
+                <p className="mt-2 text-xs leading-5 text-text-muted">Atendemos Bogotá y alrededores. No contamos con punto de venta.</p>
+              </div>
+              <a href={BUSINESS.instagramUrl} target="_blank" rel="noopener noreferrer" className="rounded-[1.5rem] border border-border bg-bg-subtle p-5 transition hover:border-accent-deep focus:outline-none focus:ring-2 focus:ring-accent">
+                <Instagram size={21} className="text-accent-deep" />
+                <h3 className="mt-4 font-semibold">Instagram</h3>
+                <p className="mt-2 text-xs leading-5 text-text-muted">{BUSINESS.instagramHandle}<br />Conoce nuestros trabajos.</p>
+              </a>
+            </div>
+          </aside>
         </div>
-
-        {/* Sidebar with direct contact */}
-        <aside className="lg:w-2/5 space-y-6">
-          {/* WhatsApp direct */}
-          <div className="p-6 bg-green-50 rounded-lg border border-green-200">
-            <h3 className="font-semibold text-primary mb-2">
-              WhatsApp Business
-            </h3>
-            <p className="text-sm text-text-muted mb-4">
-              ¿Prefieres una respuesta más rápida? Escríbenos directamente por
-              WhatsApp.
-            </p>
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-medium py-2.5 px-5 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-            >
-              <MessageCircle size={18} />
-              Abrir WhatsApp
-            </a>
-          </div>
-
-          {/* Social */}
-          <div className="p-6 bg-bg-subtle rounded-lg border border-border">
-            <h3 className="font-semibold text-primary mb-2">
-              Síguenos
-            </h3>
-            <p className="text-sm text-text-muted mb-4">
-              Mira nuestros trabajos más recientes en redes sociales.
-            </p>
-            <a
-              href="https://instagram.com/logikadecoracion"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-accent hover:text-accent/80 font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 rounded"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-              @logikadecoracion
-            </a>
-          </div>
-
-          {/* Location info */}
-          <div className="p-6 bg-bg-subtle rounded-lg border border-border">
-            <h3 className="font-semibold text-primary mb-2">
-              Ubicación
-            </h3>
-            <p className="text-sm text-text-muted">
-              Bogotá, Colombia. Atendemos toda la ciudad y alrededores con
-              servicio de entrega directa.
-            </p>
-          </div>
-        </aside>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

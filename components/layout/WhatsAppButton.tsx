@@ -1,7 +1,8 @@
 'use client';
 
-import { Send } from 'lucide-react';
+import { MessageCircle } from 'lucide-react';
 import { buildWhatsAppUrl } from '@/components/ui/WhatsAppLink';
+import { BUSINESS } from '@/constants/business';
 import { DEFAULT_WHATSAPP_MSG } from '@/constants/whatsapp';
 
 interface WhatsAppButtonProps {
@@ -11,7 +12,7 @@ interface WhatsAppButtonProps {
 
 export default function WhatsAppButton({
   message = DEFAULT_WHATSAPP_MSG,
-  phone = '573001234567',
+  phone = BUSINESS.whatsappPhone,
 }: WhatsAppButtonProps) {
   const whatsappUrl = buildWhatsAppUrl(phone, message);
 
@@ -20,11 +21,12 @@ export default function WhatsAppButton({
       href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 bg-accent hover:bg-accent/90 text-white rounded-full p-4 shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-primary hover:scale-110"
+      className="fixed bottom-6 right-6 z-50 inline-flex items-center gap-2 rounded-full bg-accent p-4 text-primary shadow-lift transition-all duration-300 hover:-translate-y-1 hover:bg-white focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 sm:px-5"
       aria-label="Contactar por WhatsApp"
       title="Contactar por WhatsApp"
     >
-      <Send size={24} />
+      <MessageCircle size={24} />
+      <span className="hidden text-sm font-semibold sm:inline">Hablemos</span>
     </a>
   );
 }

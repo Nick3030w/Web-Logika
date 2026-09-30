@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useState } from 'react';
+import { MessageCircle } from 'lucide-react';
 import { CATEGORIES } from '@/constants/categories';
-import { submitContactForm, ActionResult } from '@/app/contacto/actions';
-import { Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { BUSINESS } from '@/constants/business';
+import { buildWhatsAppUrl } from '@/components/ui/WhatsAppLink';
 
 interface FormErrors {
   name?: string;
@@ -18,206 +19,128 @@ export default function ContactForm() {
   const [productInterest, setProductInterest] = useState('');
   const [message, setMessage] = useState('');
   const [errors, setErrors] = useState<FormErrors>({});
-  const [result, setResult] = useState<ActionResult | null>(null);
-  const [isPending, startTransition] = useTransition();
 
-  function validateClient(): boolean {
-    const newErrors: FormErrors = {};
-
+  function validate(): boolean {
+    const nextErrors: FormErrors = {};
     if (!name.trim() || name.trim().length > 100) {
-      newErrors.name = 'El nombre es obligatorio (máx. 100 caracteres).';
+      nextErrors.name = 'Escribe tu nombre (máximo 100 caracteres).';
     }
-
     if (!/^3\d{9}$/.test(phone.trim())) {
-      newErrors.phone = 'Ingresa un número de 10 dígitos que inicie con 3.';
+      nextErrors.phone = 'Ingresa un celular colombiano de 10 dígitos.';
     }
-
     if (!productInterest) {
-      newErrors.productInterest = 'Selecciona un producto de interés.';
+      nextErrors.productInterest = 'Selecciona lo que te interesa.';
     }
-
     if (message.trim().length > 500) {
-      newErrors.message = 'El mensaje no puede superar 500 caracteres.';
+      nextErrors.message = 'El mensaje no puede superar 500 caracteres.';
     }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    setErrors(nextErrors);
+    return Object.keys(nextErrors).length === 0;
   }
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setResult(null);
+  function handleSubmit(event: React.FormEvent) {
+    event.preventDefault();
+    if (!validate()) return;
 
-    if (!validateClient()) return;
+    const category =
+      CATEGORIES.find((item) => item.slug === productInterest)?.name ||
+      productInterest;
+    const whatsappMessage = [
+      `Hola Logika, soy ${name.trim()}.`,
+      `Me interesa: ${category}.`,
+      message.trim() ? `Mi idea o necesidad: ${message.trim()}` : '',
+      `Mi número de contacto es ${phone.trim()}.`,
+    ]
+      .filter(Boolean)
+      .join('\n');
 
-    startTransition(async () => {
-      const response = await submitContactForm({
-        name: name.trim(),
-        phone: phone.trim(),
-        productInterest,
-        message: message.trim(),
-      });
-
-      setResult(response);
-
-      if (response.status === 'success') {
-        setName('');
-        setPhone('');
-        setProductInterest('');
-        setMessage('');
-        setErrors({});
-      }
-    });
-  }
-
-  if (result?.status === 'success') {
-    return (
-      <div className="text-center py-10 px-6 bg-green-50 rounded-lg border border-green-200">
-        <CheckCircle size={48} className="text-green-500 mx-auto mb-4" />
-        <h3 className="font-heading text-xl font-semibold text-primary mb-2">
-          ¡Mensaje enviado!
-        </h3>
-        <p className="text-text-muted">
-          Gracias por contactarnos. Te responderemos lo antes posible.
-        </p>
-        <button
-          onClick={() => setResult(null)}
-          className="mt-6 text-accent hover:underline font-medium"
-        >
-          Enviar otro mensaje
-        </button>
-      </div>
+    window.open(
+      buildWhatsAppUrl(BUSINESS.whatsappPhone, whatsappMessage),
+      '_blank',
+      'noopener,noreferrer'
     );
   }
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-5">
-      {/* Server error */}
-      {result?.status === 'error' && (
-        <div className="flex items-start gap-3 p-4 bg-red-50 border border-red-200 rounded-lg">
-          <AlertCircle size={20} className="text-red-500 flex-shrink-0 mt-0.5" />
-          <p className="text-sm text-red-700">{result.message}</p>
-        </div>
-      )}
-
-      {/* Name */}
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-primary mb-1">
-          Nombre *
-        </label>
+        <label htmlFor="name" className="mb-1.5 block text-sm font-semibold text-primary">Nombre *</label>
         <input
           id="name"
           type="text"
           maxLength={100}
           value={name}
-          onChange={(e) => setName(e.target.value)}
-          className={`w-full px-4 py-2.5 rounded-lg border ${
-            errors.name ? 'border-red-400' : 'border-border'
-          } focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors`}
-          placeholder="Tu nombre completo"
-          aria-invalid={!!errors.name}
+          onChange={(event) => setName(event.target.value)}
+          className={`w-full rounded-xl border bg-bg-base px-4 py-3 outline-none transition focus:ring-2 focus:ring-accent ${errors.name ? 'border-red-400' : 'border-border'}`}
+          placeholder="Tu nombre"
+          aria-invalid={Boolean(errors.name)}
           aria-describedby={errors.name ? 'name-error' : undefined}
         />
-        {errors.name && (
-          <p id="name-error" className="text-sm text-red-500 mt-1">{errors.name}</p>
-        )}
+        {errors.name && <p id="name-error" className="mt-1.5 text-xs text-red-600">{errors.name}</p>}
       </div>
 
-      {/* Phone */}
       <div>
-        <label htmlFor="phone" className="block text-sm font-medium text-primary mb-1">
-          Teléfono *
-        </label>
+        <label htmlFor="phone" className="mb-1.5 block text-sm font-semibold text-primary">Celular *</label>
         <input
           id="phone"
           type="tel"
+          inputMode="numeric"
           maxLength={10}
           value={phone}
-          onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
-          className={`w-full px-4 py-2.5 rounded-lg border ${
-            errors.phone ? 'border-red-400' : 'border-border'
-          } focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors`}
-          placeholder="3001234567"
-          aria-invalid={!!errors.phone}
+          onChange={(event) => setPhone(event.target.value.replace(/\D/g, ''))}
+          className={`w-full rounded-xl border bg-bg-base px-4 py-3 outline-none transition focus:ring-2 focus:ring-accent ${errors.phone ? 'border-red-400' : 'border-border'}`}
+          placeholder="300 123 4567"
+          aria-invalid={Boolean(errors.phone)}
           aria-describedby={errors.phone ? 'phone-error' : undefined}
         />
-        {errors.phone && (
-          <p id="phone-error" className="text-sm text-red-500 mt-1">{errors.phone}</p>
-        )}
+        {errors.phone && <p id="phone-error" className="mt-1.5 text-xs text-red-600">{errors.phone}</p>}
       </div>
 
-      {/* Product interest */}
       <div>
-        <label htmlFor="productInterest" className="block text-sm font-medium text-primary mb-1">
-          Producto de interés *
-        </label>
+        <label htmlFor="productInterest" className="mb-1.5 block text-sm font-semibold text-primary">Estoy buscando *</label>
         <select
           id="productInterest"
           value={productInterest}
-          onChange={(e) => setProductInterest(e.target.value)}
-          className={`w-full px-4 py-2.5 rounded-lg border ${
-            errors.productInterest ? 'border-red-400' : 'border-border'
-          } focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors bg-white`}
-          aria-invalid={!!errors.productInterest}
+          onChange={(event) => setProductInterest(event.target.value)}
+          className={`w-full rounded-xl border bg-bg-base px-4 py-3 outline-none transition focus:ring-2 focus:ring-accent ${errors.productInterest ? 'border-red-400' : 'border-border'}`}
+          aria-invalid={Boolean(errors.productInterest)}
           aria-describedby={errors.productInterest ? 'interest-error' : undefined}
         >
           <option value="">Selecciona una opción</option>
-          {CATEGORIES.map((cat) => (
-            <option key={cat.slug} value={cat.slug}>
-              {cat.name}
-            </option>
+          {CATEGORIES.map((category) => (
+            <option key={category.slug} value={category.slug}>{category.name}</option>
           ))}
-          <option value="otro">Otro</option>
+          <option value="Visita al taller">Visita al taller</option>
+          <option value="Otro proyecto">Otro proyecto</option>
         </select>
-        {errors.productInterest && (
-          <p id="interest-error" className="text-sm text-red-500 mt-1">{errors.productInterest}</p>
-        )}
+        {errors.productInterest && <p id="interest-error" className="mt-1.5 text-xs text-red-600">{errors.productInterest}</p>}
       </div>
 
-      {/* Message */}
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-primary mb-1">
-          Mensaje
-        </label>
+        <label htmlFor="message" className="mb-1.5 block text-sm font-semibold text-primary">Cuéntanos tu idea</label>
         <textarea
           id="message"
           maxLength={500}
           rows={4}
           value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          className={`w-full px-4 py-2.5 rounded-lg border ${
-            errors.message ? 'border-red-400' : 'border-border'
-          } focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-colors resize-none`}
-          placeholder="Cuéntanos qué necesitas..."
-          aria-invalid={!!errors.message}
+          onChange={(event) => setMessage(event.target.value)}
+          className={`w-full resize-none rounded-xl border bg-bg-base px-4 py-3 outline-none transition focus:ring-2 focus:ring-accent ${errors.message ? 'border-red-400' : 'border-border'}`}
+          placeholder="Medidas aproximadas, estilo, ciudad o cualquier detalle útil..."
+          aria-invalid={Boolean(errors.message)}
           aria-describedby={errors.message ? 'message-error' : undefined}
         />
-        {errors.message && (
-          <p id="message-error" className="text-sm text-red-500 mt-1">{errors.message}</p>
-        )}
-        <p className="text-xs text-text-muted mt-1 text-right">
-          {message.length}/500
-        </p>
+        <div className="mt-1.5 flex justify-between text-xs text-text-muted">
+          <span>{errors.message || 'Puedes completar los detalles en WhatsApp.'}</span>
+          <span>{message.length}/500</span>
+        </div>
       </div>
 
-      {/* Submit */}
-      <button
-        type="submit"
-        disabled={isPending}
-        className="w-full flex items-center justify-center gap-2 bg-accent hover:bg-accent/90 disabled:bg-accent/50 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
-      >
-        {isPending ? (
-          <>
-            <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-            Enviando...
-          </>
-        ) : (
-          <>
-            <Send size={18} />
-            Enviar mensaje
-          </>
-        )}
+      <button type="submit" className="button-primary w-full">
+        <MessageCircle size={19} /> Continuar por WhatsApp
       </button>
+      <p className="text-center text-xs leading-5 text-text-muted">
+        Al continuar se abrirá una conversación con la información que escribiste.
+      </p>
     </form>
   );
 }

@@ -71,7 +71,7 @@ describe('WhatsAppButton Component', () => {
       
       expect(href).toContain(encodeURIComponent(specialMessage));
       // Should not contain unencoded special characters in the text param
-      const textParam = new URL(href).searchParams.get('text');
+      const textParam = new URL(href!).searchParams.get('text');
       expect(textParam).toBe(specialMessage);
     });
   });
@@ -140,8 +140,8 @@ describe('WhatsAppButton Component', () => {
       render(<WhatsAppButton />);
       const button = screen.getByRole('link', { name: /Contactar por WhatsApp/i });
       
-      // Button should have accent background and white text for good contrast
-      expect(button).toHaveClass('bg-accent', 'text-white');
+      // Brand turquoise uses dark text to maintain accessible contrast.
+      expect(button).toHaveClass('bg-accent', 'text-primary');
     });
   });
 

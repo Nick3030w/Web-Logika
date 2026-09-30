@@ -1,20 +1,22 @@
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 export default function NotFound() {
   return (
-    <section className="flex flex-col items-center justify-center min-h-[60vh] px-4 text-center">
-      <h1 className="font-heading text-4xl font-bold text-primary mb-4">
-        Página no encontrada
-      </h1>
-      <p className="text-text-muted text-lg mb-8 max-w-md">
-        Lo sentimos, la página que buscas no existe o fue movida.
-      </p>
-      <Link
-        href="/catalogo"
-        className="inline-flex items-center gap-2 bg-accent hover:bg-accent/90 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
-      >
-        Ver catálogo
-      </Link>
+    <section className="grid min-h-[70vh] place-items-center bg-bg-subtle px-4 py-16 text-center">
+      <div className="max-w-xl">
+        <p className="font-heading text-7xl font-semibold text-accent-deep">404</p>
+        <h1 className="mt-4 font-heading text-4xl font-semibold text-primary">
+          Este espacio todavía está vacío
+        </h1>
+        <p className="mt-4 text-lg leading-7 text-text-muted">
+          La página que buscas no existe o cambió de lugar. Puedes volver al
+          catálogo y seguir explorando nuestras referencias.
+        </p>
+        <Link href="/catalogo" className="button-primary mt-8">
+          Ver catálogo <ArrowRight size={18} />
+        </Link>
+      </div>
     </section>
   );
 }

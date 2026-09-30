@@ -1,0 +1,17 @@
+rules_version = '2';
+
+// Product media is public for reading (the catalog is public) and can only be
+// written with the Admin SDK through `npm run media:upload`.
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /productos/{allPaths=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /{allPaths=**} {
+      allow read: if false;
+      allow write: if false;
+    }
+  }
+}

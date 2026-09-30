@@ -6,11 +6,11 @@ expect.extend(toHaveNoViolations);
 
 describe('Footer Component', () => {
   describe('Rendering', () => {
-    it('should render the logo', () => {
+    it('should render the brand lockup with tagline', () => {
       render(<Footer />);
-      const logo = screen.getByText('Logika');
-      expect(logo).toBeInTheDocument();
-      expect(logo).toHaveClass('text-accent');
+      expect(screen.getByText('gika')).toBeInTheDocument();
+      const tagline = screen.getByText('Diseño arte y decoración');
+      expect(tagline).toHaveClass('text-accent');
     });
 
     it('should render company description', () => {
@@ -74,14 +74,14 @@ describe('Footer Component', () => {
       render(<Footer />);
       
       const externalLinks = [
-        { text: 'WhatsApp', href: 'https://wa.me/57' },
-        { text: 'Instagram', href: 'https://instagram.com/logikadecoracion' },
+        { text: 'WhatsApp', hrefPrefix: 'https://wa.me/573001234567' },
+        { text: 'Instagram', hrefPrefix: 'https://instagram.com/logikadecoracion' },
       ];
       
-      externalLinks.forEach(({ text, href }) => {
-        const links = screen.getAllByText(text);
+      externalLinks.forEach(({ text, hrefPrefix }) => {
+        const links = screen.getAllByRole('link', { name: text });
         const externalLink = links.find(
-          link => link.getAttribute('href') === href && link.getAttribute('target') === '_blank'
+          link => link.getAttribute('href')?.startsWith(hrefPrefix) && link.getAttribute('target') === '_blank'
         );
         expect(externalLink).toBeInTheDocument();
         expect(externalLink).toHaveAttribute('rel', 'noopener noreferrer');
@@ -170,10 +170,9 @@ describe('Footer Component', () => {
       expect(footer).toHaveClass('text-white');
     });
 
-    it('should have accent colored logo', () => {
+    it('should render the accent colored brand tagline', () => {
       render(<Footer />);
-      const logo = screen.getByText('Logika');
-      expect(logo).toHaveClass('text-accent');
+      expect(screen.getByText('Diseño arte y decoración')).toHaveClass('text-accent');
     });
   });
 });

@@ -1,3 +1,84 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(circle at 8% 12%, rgba(22, 216, 212, 0.055), transparent 24rem),
+    #fcfbf8;
+}
+
+::selection {
+  color: #242628;
+  background: rgba(22, 216, 212, 0.45);
+}
+
+@layer components {
+  .section-shell {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-space {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.24em] text-accent-deep;
+  }
+
+  .display-title {
+    @apply font-heading text-4xl font-light leading-[1.06] tracking-[-0.02em] text-primary sm:text-5xl lg:text-6xl;
+  }
+
+  .section-title {
+    @apply font-heading text-3xl font-light leading-tight tracking-[-0.015em] text-primary sm:text-4xl;
+  }
+
+  .button-primary {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-accent-deep hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2;
+  }
+
+  .button-accent {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-primary transition duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2;
+  }
+
+  .button-outline {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-primary/20 bg-white/80 px-6 py-3 text-sm font-semibold text-primary backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:border-accent-deep hover:text-accent-deep focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2;
+  }
+
+  .surface-card {
+    @apply rounded-[1.5rem] border border-border/80 bg-white shadow-soft;
+  }
+
+  .hover-lift {
+    @apply transition duration-500 ease-out hover:-translate-y-1.5 hover:shadow-lift;
+  }
+
+  .link-underline {
+    @apply relative after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:duration-500 hover:after:scale-x-100;
+  }
+}
+
+/* Respect users who ask for reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

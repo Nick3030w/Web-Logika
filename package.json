@@ -8,7 +8,10 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "media:check": "node scripts/upload-media.js --check",
+    "media:dry-run": "node scripts/upload-media.js --dry-run",
+    "media:upload": "node scripts/upload-media.js"
   },
   "dependencies": {
     "firebase-admin": "^13.10.0",

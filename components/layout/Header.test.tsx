@@ -6,11 +6,14 @@ expect.extend(toHaveNoViolations);
 
 describe('Header Component', () => {
   describe('Rendering', () => {
-    it('should render the logo', () => {
+    it('should render the brand lockup', () => {
       render(<Header />);
-      const logo = screen.getByText('Logika');
-      expect(logo).toBeInTheDocument();
-      expect(logo).toHaveClass('text-accent');
+      const brandLink = screen.getByRole('link', {
+        name: /Logika Decoración - Inicio/i,
+      });
+      expect(brandLink).toBeInTheDocument();
+      // Wordmark renders the cube in place of the "o".
+      expect(screen.getByText('gika')).toBeInTheDocument();
     });
 
     it('should render desktop navigation links', () => {
@@ -166,10 +169,10 @@ describe('Header Component', () => {
       expect(header).toHaveClass('sticky', 'top-0');
     });
 
-    it('should have accent colored logo and social icons', () => {
+    it('should have an accent colored WhatsApp call to action', () => {
       render(<Header />);
-      const logo = screen.getByText('Logika');
-      expect(logo).toHaveClass('text-accent');
+      const cta = screen.getAllByRole('link', { name: 'WhatsApp' })[0];
+      expect(cta).toHaveClass('bg-accent');
     });
   });
 });

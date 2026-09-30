@@ -26,6 +26,15 @@ yarn-error.log*
 # local env files
 .env*.local
 
+# firebase service account keys
+*serviceAccount*.json
+firebase-adminsdk*.json
+
+# product media source files (uploaded to Firebase Storage, not to git)
+/media/*
+!/media/README.md
+!/media/_ejemplo-sofa-oslo
+
 # vercel
 .vercel
 

@@ -1,129 +1,141 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Menu, X, MessagesSquare, Send } from 'lucide-react';
+import { MessagesSquare as Instagram, Menu, MessageCircle, X } from 'lucide-react';
+import BrandLogo from '@/components/ui/BrandLogo';
+import { buildWhatsAppUrl } from '@/components/ui/WhatsAppLink';
+import { BUSINESS } from '@/constants/business';
+import { DEFAULT_WHATSAPP_MSG } from '@/constants/whatsapp';
 
 const NAV_LINKS = [
   { href: '/', label: 'Inicio' },
   { href: '/catalogo', label: 'Catálogo' },
+  { href: '/a-medida', label: 'A medida' },
   { href: '/nosotros', label: 'Nosotros' },
   { href: '/contacto', label: 'Contacto' },
 ];
 
-const SOCIAL_LINKS = [
-  {
-    href: 'https://instagram.com/logikadecoracion',
-    icon: MessagesSquare,
-    label: 'Instagram',
-    external: true,
-  },
-  {
-    href: 'https://wa.me/57',
-    icon: Send,
-    label: 'WhatsApp',
-    external: true,
-  },
-];
-
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const whatsappUrl = buildWhatsAppUrl(
+    BUSINESS.whatsappPhone,
+    DEFAULT_WHATSAPP_MSG
+  );
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-  };
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 24);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <header className="bg-primary text-white sticky top-0 z-40 shadow-md">
-      <nav className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-        {/* Logo */}
+    <header
+      className={`bg-primary text-white sticky top-0 z-40 border-b transition-all duration-500 ${
+        isScrolled
+          ? 'border-white/10 shadow-lift backdrop-blur-md'
+          : 'border-transparent shadow-none'
+      }`}
+    >
+      <nav
+        aria-label="Navegación principal"
+        className={`section-shell flex items-center justify-between transition-all duration-500 ${
+          isScrolled ? 'h-[68px]' : 'h-[84px]'
+        }`}
+      >
         <Link
           href="/"
-          className="font-heading text-xl font-bold text-accent flex-shrink-0"
+          className="rounded-sm focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-4 focus:ring-offset-primary"
           aria-label="Logika Decoración - Inicio"
         >
-          Logika
+          <BrandLogo compact inverse />
         </Link>
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden items-center gap-7 lg:flex">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-medium hover:text-accent transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-primary px-2 py-1 rounded"
+              className="link-underline rounded px-1 py-2 text-sm font-medium text-white/80 transition-colors hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-primary"
             >
               {link.label}
             </Link>
           ))}
         </div>
 
-        {/* Social Icons - Desktop */}
-        <div className="hidden md:flex items-center gap-4">
-          {SOCIAL_LINKS.map((link) => {
-            const Icon = link.icon;
-            return (
-              <a
-                key={link.href}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-accent hover:opacity-75 transition-opacity duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-primary rounded p-1"
-                aria-label={link.label}
-              >
-                <Icon size={20} />
-              </a>
-            );
-          })}
+        <div className="hidden items-center gap-2 lg:flex">
+          <a
+            href={BUSINESS.instagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full p-2.5 text-white/70 transition hover:bg-white/10 hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent"
+            aria-label="Instagram"
+          >
+            <Instagram size={19} />
+          </a>
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-primary transition duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-primary"
+            aria-label="WhatsApp"
+          >
+            <MessageCircle size={18} />
+            Cotizar
+          </a>
         </div>
 
-        {/* Hamburger Menu Button - Mobile */}
         <button
-          onClick={toggleMenu}
-          className="md:hidden p-2 text-accent hover:bg-primary focus:outline-none focus:ring-2 focus:ring-accent rounded"
+          onClick={() => setIsMenuOpen((open) => !open)}
+          className="rounded-full p-2.5 text-accent hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-accent lg:hidden"
           aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
           aria-expanded={isMenuOpen}
+          aria-controls="mobile-navigation"
         >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          {isMenuOpen ? <X size={25} /> : <Menu size={25} />}
         </button>
       </nav>
 
-      {/* Mobile Navigation Overlay */}
       {isMenuOpen && (
-        <div className="md:hidden bg-primary border-t border-gray-700">
-          <nav className="flex flex-col px-4 sm:px-6 py-4 space-y-2">
+        <div
+          id="mobile-navigation"
+          className="animate-fade-up border-t border-white/10 bg-primary lg:hidden"
+        >
+          <nav
+            aria-label="Navegación móvil"
+            className="section-shell flex flex-col gap-1 py-5"
+          >
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                onClick={closeMenu}
-                className="text-sm font-medium py-2 px-2 rounded hover:bg-gray-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-primary"
+                onClick={() => setIsMenuOpen(false)}
+                className="rounded-xl px-3 py-3 text-base font-medium text-white/85 transition hover:bg-white/5 hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent"
               >
                 {link.label}
               </Link>
             ))}
-
-            {/* Social Icons - Mobile */}
-            <div className="pt-4 border-t border-gray-700 flex gap-4 mt-2">
-              {SOCIAL_LINKS.map((link) => {
-                const Icon = link.icon;
-                return (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-accent hover:opacity-75 transition-opacity duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-primary rounded p-2"
-                    aria-label={link.label}
-                  >
-                    <Icon size={20} />
-                  </a>
-                );
-              })}
+            <div className="mt-3 grid grid-cols-2 gap-3 border-t border-white/10 pt-5">
+              <a
+                href={BUSINESS.instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/20 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-accent"
+                aria-label="Instagram"
+              >
+                <Instagram size={18} /> Instagram
+              </a>
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-accent text-sm font-semibold text-primary focus:outline-none focus:ring-2 focus:ring-accent"
+                aria-label="WhatsApp"
+              >
+                <MessageCircle size={18} /> Cotizar
+              </a>
             </div>
           </nav>
         </div>

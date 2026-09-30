@@ -1,52 +1,66 @@
-import { Ruler, ShieldCheck, Palette } from 'lucide-react';
+import { Factory, Palette, Ruler, ShieldCheck } from 'lucide-react';
+import Reveal from '@/components/ui/Reveal';
 
 const DIFFERENTIATORS = [
   {
     icon: Ruler,
-    title: 'Hecho a tu medida',
+    number: '01',
+    title: 'Medimos tu espacio',
     description:
-      'Cada mueble se diseña y fabrica según las dimensiones exactas de tu espacio. Sin límites de catálogo.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Materiales premium',
-    description:
-      'Espumas de alta densidad, maderas seleccionadas y telas de primera calidad. Durabilidad que se nota.',
+      'Coordinamos una visita para entender proporciones, circulación y necesidades antes de fabricar.',
   },
   {
     icon: Palette,
-    title: 'Personalización total',
+    number: '02',
+    title: 'Tú eliges los acabados',
     description:
-      'Elige colores, texturas y acabados. Tú decides cada detalle para que tu mueble sea único.',
+      'Compara telas, colores, texturas y firmezas con acompañamiento para tomar una buena decisión.',
+  },
+  {
+    icon: Factory,
+    number: '03',
+    title: 'Fabricación propia',
+    description:
+      'Construimos cada mueble en nuestro taller y controlamos estructura, tapizado y terminaciones.',
+  },
+  {
+    icon: ShieldCheck,
+    number: '04',
+    title: 'Calidad que puedes ver',
+    description:
+      'Agenda una visita a la fábrica y conoce los materiales y el proceso detrás de cada pieza.',
   },
 ];
 
 export default function DifferentiatorsSection() {
   return (
-    <section className="bg-bg-subtle py-16 sm:py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="font-heading text-2xl sm:text-3xl font-bold text-primary mb-12 text-center">
-          ¿Por qué Logika?
-        </h2>
+    <section className="section-space bg-primary text-white">
+      <div className="section-shell">
+        <Reveal className="max-w-2xl">
+          <p className="eyebrow">Por qué Logika</p>
+          <h2 className="mt-3 font-heading text-3xl font-light leading-tight sm:text-4xl">
+            Más que un mueble: una pieza pensada y bien fabricada.
+          </h2>
+        </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {DIFFERENTIATORS.map((item) => {
+        <div className="mt-12 grid gap-px overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/10 md:grid-cols-2 lg:grid-cols-4">
+          {DIFFERENTIATORS.map((item, index) => {
             const Icon = item.icon;
             return (
-              <div
-                key={item.title}
-                className="flex flex-col items-center text-center p-6 rounded-lg bg-white border border-border"
-              >
-                <div className="w-14 h-14 flex items-center justify-center bg-accent/10 rounded-full mb-4">
-                  <Icon size={28} className="text-accent" />
-                </div>
-                <h3 className="font-heading text-lg font-semibold text-primary mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-text-muted text-sm leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
+              <Reveal key={item.title} delay={index * 100}>
+                <article className="group h-full bg-primary p-6 transition-colors duration-500 hover:bg-bg-dark sm:p-7">
+                  <div className="flex items-center justify-between">
+                    <span className="grid h-12 w-12 place-items-center rounded-full bg-accent/10 text-accent transition duration-500 group-hover:scale-110 group-hover:bg-accent/20">
+                      <Icon size={23} />
+                    </span>
+                    <span className="font-heading text-2xl text-white/20 transition-colors duration-500 group-hover:text-accent/40">
+                      {item.number}
+                    </span>
+                  </div>
+                  <h3 className="mt-7 font-heading text-xl font-normal">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-6 text-white/60">{item.description}</p>
+                </article>
+              </Reveal>
             );
           })}
         </div>
