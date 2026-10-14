@@ -1,0 +1,20 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Catálogo de productos: lectura pública para todos los visitantes.
+    // Las escrituras se hacen únicamente desde el servidor (Admin SDK),
+    // que ignora estas reglas, así que bloqueamos todo write del cliente.
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Envíos del formulario de contacto: sin acceso desde el cliente.
+    // Se guardan mediante Server Action con Admin SDK.
+    match /contacts/{contactId} {
+      allow read, write: if false;
+    }
+  }
+}

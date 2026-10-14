@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "media:check": "ts-node --project tsconfig.scripts.json scripts/check-firebase.ts",
+    "media:seed": "ts-node --project tsconfig.scripts.json scripts/seed-products.ts"
   },
   "dependencies": {
     "firebase-admin": "^13.10.0",

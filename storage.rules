@@ -1,0 +1,18 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Imágenes y videos de productos: lectura pública para cualquier visitante.
+    // Las subidas se hacen desde el servidor (Admin SDK), que ignora estas reglas.
+    match /products/{allPaths=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Todo lo demás: bloqueado por defecto.
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
