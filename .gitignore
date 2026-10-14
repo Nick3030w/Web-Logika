@@ -29,6 +29,7 @@ yarn-error.log*
 # firebase service account keys
 *serviceAccount*.json
 firebase-adminsdk*.json
+*-firebase-adminsdk-*.json
 
 # product media source files (uploaded to Firebase Storage, not to git)
 /media/*
