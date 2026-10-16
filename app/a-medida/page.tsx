@@ -28,12 +28,12 @@ export default function AmedidaPage() {
   return (
     <>
       <section className="overflow-hidden bg-primary text-white">
-        <div className="section-shell grid min-h-[680px] items-center gap-10 py-16 lg:grid-cols-2">
+        <div className="section-shell grid min-h-[calc(100svh-var(--header-height))] items-center gap-10 py-16 lg:grid-cols-2">
           <div className="max-w-xl">
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-accent">
               Diseñado para ti
             </p>
-            <h1 className="mt-4 font-heading text-5xl font-semibold leading-[1.02] tracking-[-0.035em] sm:text-6xl">
+            <h1 className="mt-4 font-heading text-5xl font-light leading-[1.02] tracking-[-0.035em] sm:text-6xl">
               Tu espacio no es estándar. Tu mueble tampoco debería serlo.
             </h1>
             <p className="mt-6 text-lg leading-8 text-white/70">

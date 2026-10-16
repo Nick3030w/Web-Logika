@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import HeroSlider from '@/components/home/HeroSlider';
 import CategorySection from '@/components/home/CategorySection';
+import FeaturedProducts from '@/components/home/FeaturedProducts';
 import HybridOfferSection from '@/components/home/HybridOfferSection';
 import CustomProcessSection from '@/components/home/CustomProcessSection';
 import DifferentiatorsSection from '@/components/home/DifferentiatorsSection';
@@ -20,6 +21,7 @@ export default function Home() {
     <>
       <HeroSlider />
       <CategorySection />
+      <FeaturedProducts />
       <HybridOfferSection />
       <CustomProcessSection />
       <DifferentiatorsSection />

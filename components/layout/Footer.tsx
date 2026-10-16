@@ -4,14 +4,7 @@ import BrandLogo from '@/components/ui/BrandLogo';
 import { buildWhatsAppUrl } from '@/components/ui/WhatsAppLink';
 import { BUSINESS } from '@/constants/business';
 import { DEFAULT_WHATSAPP_MSG } from '@/constants/whatsapp';
-
-const NAV_LINKS = [
-  { href: '/', label: 'Inicio' },
-  { href: '/catalogo', label: 'Catálogo' },
-  { href: '/a-medida', label: 'Muebles a medida' },
-  { href: '/nosotros', label: 'Nosotros' },
-  { href: '/contacto', label: 'Contacto' },
-];
+import { NAV_LINKS } from '@/constants/navigation';
 
 const focusStyles =
   'rounded focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-primary';
@@ -49,7 +42,7 @@ export default function Footer() {
                   href={link.href}
                   className={`${focusStyles} w-fit text-sm text-white/70 transition hover:text-accent`}
                 >
-                  {link.label}
+                  {link.longLabel ?? link.label}
                 </Link>
               ))}
             </nav>

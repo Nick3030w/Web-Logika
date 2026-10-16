@@ -8,9 +8,7 @@ describe('Footer Component', () => {
   describe('Rendering', () => {
     it('should render the brand lockup with tagline', () => {
       render(<Footer />);
-      expect(screen.getByText('gika')).toBeInTheDocument();
-      const tagline = screen.getByText('Diseño arte y decoración');
-      expect(tagline).toHaveClass('text-accent');
+      expect(screen.getByAltText('Logika Decoración')).toBeInTheDocument();
     });
 
     it('should render company description', () => {
@@ -170,9 +168,12 @@ describe('Footer Component', () => {
       expect(footer).toHaveClass('text-white');
     });
 
-    it('should render the accent colored brand tagline', () => {
+    it('should render the official logo image', () => {
       render(<Footer />);
-      expect(screen.getByText('Diseño arte y decoración')).toHaveClass('text-accent');
+      expect(screen.getByAltText('Logika Decoración')).toHaveAttribute(
+        'src',
+        expect.stringContaining('logika-logo')
+      );
     });
   });
 });

@@ -17,7 +17,9 @@ export const BUSINESS = {
  * its path (for example "/brand/logika-logo.svg") to replace the vector lockup
  * rendered by BrandLogo. A transparent SVG or PNG works best.
  */
-export const BRAND_LOGO_SRC: string | null = null;
+export const BRAND_LOGO_SRC: string | null = "/brand/logika-logo.png";
+/** Natural size of the cropped official logo (width / height). */
+export const BRAND_LOGO_SIZE = { width: 432, height: 118 } as const;
 
 export const CUSTOM_QUOTE_MESSAGE =
   "Hola Logika, quiero cotizar un mueble a medida para mi espacio.";

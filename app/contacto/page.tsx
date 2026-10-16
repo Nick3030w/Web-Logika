@@ -20,7 +20,7 @@ export default function ContactoPage() {
       <header className="bg-primary py-14 text-white sm:py-20">
         <div className="section-shell text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-accent">Hablemos de tu espacio</p>
-          <h1 className="mx-auto mt-4 max-w-3xl font-heading text-4xl font-semibold sm:text-6xl">
+          <h1 className="mx-auto mt-4 max-w-3xl font-heading text-4xl font-light leading-[1.06] tracking-[-0.02em] sm:text-6xl">
             Una conversación es el primer paso para construir algo bien.
           </h1>
           <p className="mx-auto mt-5 max-w-2xl leading-7 text-white/60">

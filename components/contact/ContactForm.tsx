@@ -13,6 +13,14 @@ interface FormErrors {
   message?: string;
 }
 
+// Order used to focus the first invalid field after a failed submit.
+const FIELD_ORDER: (keyof FormErrors)[] = [
+  'name',
+  'phone',
+  'productInterest',
+  'message',
+];
+
 export default function ContactForm() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -20,7 +28,7 @@ export default function ContactForm() {
   const [message, setMessage] = useState('');
   const [errors, setErrors] = useState<FormErrors>({});
 
-  function validate(): boolean {
+  function validate(): FormErrors {
     const nextErrors: FormErrors = {};
     if (!name.trim() || name.trim().length > 100) {
       nextErrors.name = 'Escribe tu nombre (máximo 100 caracteres).';
@@ -35,12 +43,21 @@ export default function ContactForm() {
       nextErrors.message = 'El mensaje no puede superar 500 caracteres.';
     }
     setErrors(nextErrors);
-    return Object.keys(nextErrors).length === 0;
+    return nextErrors;
   }
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    if (!validate()) return;
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      const firstInvalid = FIELD_ORDER.find((field) => validationErrors[field]);
+      if (firstInvalid) {
+        document.getElementById(
+          firstInvalid === 'productInterest' ? 'productInterest' : firstInvalid
+        )?.focus();
+      }
+      return;
+    }
 
     const category =
       CATEGORIES.find((item) => item.slug === productInterest)?.name ||
@@ -129,9 +146,17 @@ export default function ContactForm() {
           aria-invalid={Boolean(errors.message)}
           aria-describedby={errors.message ? 'message-error' : undefined}
         />
-        <div className="mt-1.5 flex justify-between text-xs text-text-muted">
-          <span>{errors.message || 'Puedes completar los detalles en WhatsApp.'}</span>
-          <span>{message.length}/500</span>
+        <div className="mt-1.5 flex justify-between gap-3 text-xs">
+          {errors.message ? (
+            <p id="message-error" className="text-red-600">
+              {errors.message}
+            </p>
+          ) : (
+            <span className="text-text-muted">
+              Puedes completar los detalles en WhatsApp.
+            </span>
+          )}
+          <span className="text-text-muted">{message.length}/500</span>
         </div>
       </div>
 

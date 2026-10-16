@@ -25,7 +25,7 @@ const config: Config = {
         body: ["var(--font-manrope)", "system-ui", "sans-serif"],
       },
       spacing: {
-        "nav-height": "76px",
+        "nav-height": "84px",
         "section-y": "96px",
         "section-y-mobile": "64px",
         "card-gap": "24px",

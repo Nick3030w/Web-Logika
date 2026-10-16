@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { BRAND_LOGO_SRC } from '@/constants/business';
+import { BRAND_LOGO_SIZE, BRAND_LOGO_SRC } from '@/constants/business';
 
 interface BrandLogoProps {
   compact?: boolean;
@@ -25,10 +25,11 @@ export default function BrandLogo({
         <Image
           src={BRAND_LOGO_SRC}
           alt="Logika Decoración"
-          width={compact ? 152 : 196}
-          height={compact ? 42 : 54}
+          width={BRAND_LOGO_SIZE.width}
+          height={BRAND_LOGO_SIZE.height}
           priority
-          className="h-auto w-auto"
+          sizes={compact ? '160px' : '220px'}
+          className={compact ? 'h-auto w-[160px]' : 'h-auto w-[220px]'}
         />
       </span>
     );

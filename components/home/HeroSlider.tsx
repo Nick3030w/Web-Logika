@@ -13,7 +13,7 @@ export default function HeroSlider() {
   return (
     <section className="relative isolate overflow-hidden bg-primary text-white">
       <div className="absolute inset-0 animate-fade-in bg-brand-glow" />
-      <div className="section-shell relative grid min-h-[calc(100vh-76px)] items-center gap-10 py-12 lg:grid-cols-[0.92fr_1.08fr] lg:py-16">
+      <div className="section-shell relative grid min-h-[calc(100svh-var(--header-height))] items-center gap-10 py-12 lg:grid-cols-[0.92fr_1.08fr] lg:py-16">
         <div className="relative z-10 max-w-2xl">
           <p className="mb-5 animate-fade-up text-xs font-semibold uppercase tracking-[0.24em] text-accent">
             Fabricación propia · Bogotá

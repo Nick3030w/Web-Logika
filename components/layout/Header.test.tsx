@@ -12,8 +12,8 @@ describe('Header Component', () => {
         name: /Logika Decoración - Inicio/i,
       });
       expect(brandLink).toBeInTheDocument();
-      // Wordmark renders the cube in place of the "o".
-      expect(screen.getByText('gika')).toBeInTheDocument();
+      // The official logo image is used.
+      expect(screen.getByAltText('Logika Decoración')).toBeInTheDocument();
     });
 
     it('should render desktop navigation links', () => {

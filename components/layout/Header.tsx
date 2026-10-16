@@ -1,24 +1,21 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { MessagesSquare as Instagram, Menu, MessageCircle, X } from 'lucide-react';
 import BrandLogo from '@/components/ui/BrandLogo';
 import { buildWhatsAppUrl } from '@/components/ui/WhatsAppLink';
 import { BUSINESS } from '@/constants/business';
 import { DEFAULT_WHATSAPP_MSG } from '@/constants/whatsapp';
-
-const NAV_LINKS = [
-  { href: '/', label: 'Inicio' },
-  { href: '/catalogo', label: 'Catálogo' },
-  { href: '/a-medida', label: 'A medida' },
-  { href: '/nosotros', label: 'Nosotros' },
-  { href: '/contacto', label: 'Contacto' },
-];
+import { NAV_LINKS } from '@/constants/navigation';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
+  const menuPanelRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const whatsappUrl = buildWhatsAppUrl(
     BUSINESS.whatsappPhone,
     DEFAULT_WHATSAPP_MSG
@@ -30,6 +27,62 @@ export default function Header() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Close the mobile menu whenever the route changes.
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [pathname]);
+
+  // While the mobile menu is open: lock body scroll, close on Escape, and keep
+  // keyboard focus trapped inside the panel.
+  useEffect(() => {
+    if (!isMenuOpen) return;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const panel = menuPanelRef.current;
+    const getFocusable = () =>
+      panel
+        ? Array.from(
+            panel.querySelectorAll<HTMLElement>(
+              'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+            )
+          )
+        : [];
+
+    getFocusable()[0]?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsMenuOpen(false);
+        menuButtonRef.current?.focus();
+        return;
+      }
+
+      if (event.key !== 'Tab') return;
+      const focusable = getFocusable();
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement;
+
+      if (event.shiftKey && active === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && active === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isMenuOpen]);
 
   return (
     <header
@@ -88,6 +141,7 @@ export default function Header() {
         </div>
 
         <button
+          ref={menuButtonRef}
           onClick={() => setIsMenuOpen((open) => !open)}
           className="rounded-full p-2.5 text-accent hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-accent lg:hidden"
           aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
@@ -100,6 +154,7 @@ export default function Header() {
 
       {isMenuOpen && (
         <div
+          ref={menuPanelRef}
           id="mobile-navigation"
           className="animate-fade-up border-t border-white/10 bg-primary lg:hidden"
         >

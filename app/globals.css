@@ -4,13 +4,20 @@
 
 :root {
   color-scheme: light;
+  /* Real header height. Kept in sync with Header.tsx (84px default). Used by
+     the hero min-height and by scroll-padding so sticky-header offsets match. */
+  --header-height: 84px;
 }
 
 html {
   scroll-behavior: smooth;
+  /* Prevent anchor targets and keyboard focus from hiding under the sticky header. */
+  scroll-padding-top: var(--header-height);
 }
 
 body {
+  /* Reveal's off-screen start state (translate-x) must never create a horizontal scrollbar. `clip` keeps position: sticky working. */
+  overflow-x: clip;
   background:
     radial-gradient(circle at 8% 12%, rgba(22, 216, 212, 0.055), transparent 24rem),
     #fcfbf8;

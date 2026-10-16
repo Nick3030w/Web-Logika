@@ -68,7 +68,7 @@ export default function NosotrosPage() {
         <div className="section-shell">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">Nuestro estándar</p>
-            <h2 className="mt-4 font-heading text-3xl font-semibold sm:text-4xl">Calidad que se puede observar y sentir</h2>
+            <h2 className="mt-4 font-heading text-3xl font-light leading-tight tracking-[-0.015em] sm:text-4xl">Calidad que se puede observar y sentir</h2>
           </div>
           <div className="mt-12 grid gap-px overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/10 md:grid-cols-3">
             {[
@@ -100,7 +100,7 @@ export default function NosotrosPage() {
         </div>
         <div className="section-shell mt-10 text-center">
           <Factory className="mx-auto text-accent-deep" size={28} />
-          <h2 className="mx-auto mt-4 max-w-2xl font-heading text-3xl font-semibold">Ven a conocer el lugar donde fabricamos tu próximo mueble.</h2>
+          <h2 className="section-title mx-auto mt-4 max-w-2xl">Ven a conocer el lugar donde fabricamos tu próximo mueble.</h2>
           <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-text-muted">La fábrica no es un punto de venta abierto al público. Agenda tu visita para que podamos atenderte y mostrarte los materiales con calma.</p>
           <a href={visitUrl} target="_blank" rel="noopener noreferrer" className="button-primary mt-7">
             <MessageCircle size={18} /> Agendar por WhatsApp

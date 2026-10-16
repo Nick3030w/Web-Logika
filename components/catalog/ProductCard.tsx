@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Image from 'next/image';
+import ProductCardImage from './ProductCardImage';
 import { ArrowUpRight, MessageCircle } from 'lucide-react';
 import { Product } from '@/types/product';
 import { BUSINESS } from '@/constants/business';
@@ -32,19 +32,16 @@ export default function ProductCard({ product }: ProductCardProps) {
         href={`/catalogo/${product.id}`}
         className="block focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent"
       >
-        <div className="relative aspect-[4/3] overflow-hidden bg-bg-subtle">
-          <Image
-            src={product.images[0] || '/placeholder/product-1.svg'}
-            alt={product.name}
-            fill
+        <div className="relative">
+          <ProductCardImage
+            images={product.images}
+            name={product.name}
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover transition duration-700 group-hover:scale-105"
-            loading="lazy"
           />
-          <span className={`absolute left-4 top-4 rounded-full px-3 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.14em] backdrop-blur ${
+          <span className={`absolute left-4 top-4 rounded-full px-3 py-1.5 text-xs font-semibold ${
             quoteOnly
-              ? 'bg-primary/90 text-accent'
-              : 'bg-white/90 text-primary'
+              ? 'bg-primary text-accent'
+              : 'bg-white text-primary'
           }`}>
             {quoteOnly ? 'Cotización personalizada' : 'Disponible por pedido'}
           </span>
@@ -58,9 +55,9 @@ export default function ProductCard({ product }: ProductCardProps) {
             <ArrowUpRight className="mt-1 flex-shrink-0 text-accent-deep transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" size={18} />
           </div>
           <p className="mt-2 text-sm leading-6 text-text-muted">{truncatedDescription}</p>
-          <div className="mt-4 flex items-end justify-between gap-3 border-t border-border/70 pt-4">
+          <div className="mt-4 flex items-end justify-between gap-3 pt-1">
             <div>
-              <p className="text-[0.65rem] uppercase tracking-[0.15em] text-text-muted">
+              <p className="text-xs text-text-muted">
                 {product.price ? 'Precio' : quoteOnly ? 'Valor' : 'Compra'}
               </p>
               <p className="mt-1 text-sm font-semibold text-primary">

@@ -62,18 +62,18 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <ArrowLeft size={17} /> Volver al catálogo
         </Link>
 
-        <div className="grid gap-10 lg:grid-cols-[1.35fr_0.85fr] lg:gap-14">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.85fr)] lg:gap-14">
           <ProductGallery
             images={product.images}
             videos={product.videos}
             productName={product.name}
           />
 
-          <div className="flex flex-col lg:py-2">
+          <div className="flex min-w-0 flex-col lg:py-2">
             <span className="w-fit rounded-full bg-bg-subtle px-3 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-accent-deep">
               {quoteOnly ? 'Diseño con cotización personalizada' : 'Referencia disponible por pedido'}
             </span>
-            <h1 className="mt-5 font-heading text-4xl font-semibold leading-tight tracking-[-0.025em] text-primary sm:text-5xl">
+            <h1 className="mt-5 font-heading text-4xl font-light leading-tight tracking-[-0.025em] text-primary sm:text-5xl">
               {product.name}
             </h1>
             <p className="mt-5 leading-7 text-text-muted">{product.description}</p>
