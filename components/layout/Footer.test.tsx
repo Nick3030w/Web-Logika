@@ -72,7 +72,7 @@ describe('Footer Component', () => {
       render(<Footer />);
       
       const externalLinks = [
-        { text: 'WhatsApp', hrefPrefix: 'https://wa.me/573001234567' },
+        { text: 'WhatsApp', hrefPrefix: 'https://wa.me/573103004662' },
         { text: 'Instagram', hrefPrefix: 'https://instagram.com/logikadecoracion' },
       ];
       

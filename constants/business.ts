@@ -9,7 +9,7 @@ export const BUSINESS = {
   instagramHandle: "@logikadecoracion",
   whatsappPhone:
     process.env.NEXT_PUBLIC_WHATSAPP_PHONE?.replace(/\D/g, "") ||
-    "573001234567",
+    "573103004662",
 } as const;
 
 /**

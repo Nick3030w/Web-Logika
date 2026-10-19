@@ -32,7 +32,7 @@ describe('WhatsAppButton Component', () => {
       const button = screen.getByRole('link', { name: /Contactar por WhatsApp/i });
       const href = button.getAttribute('href');
       
-      expect(href).toContain('https://wa.me/573001234567');
+      expect(href).toContain('https://wa.me/573103004662');
       expect(href).toContain('text=');
       // Message should be URL encoded
       expect(href).toContain(encodeURIComponent(DEFAULT_WHATSAPP_MSG));
