@@ -5,6 +5,7 @@ import { ArrowLeft, Check, Clock3, MessageCircle, Ruler } from 'lucide-react';
 import { getProductBySlug, getProducts } from '@/lib/products-loader';
 import { buildWhatsAppUrl } from '@/components/ui/WhatsAppLink';
 import ProductGallery from '@/components/product/ProductGallery';
+import ProductCard from '@/components/catalog/ProductCard';
 import { BUSINESS } from '@/constants/business';
 
 export const revalidate = 3600;
@@ -46,6 +47,15 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const product = await getProductBySlug(params.slug);
   if (!product) notFound();
 
+  const allProducts = await getProducts();
+  const sameCategory = allProducts.filter(
+    (item) => item.id !== product.id && item.category === product.category
+  );
+  const others = allProducts.filter(
+    (item) => item.id !== product.id && item.category !== product.category
+  );
+  const related = [...sameCategory, ...others].slice(0, 3);
+
   const quoteOnly = product.salesMode === 'quote' || product.category === 'medida';
   const message = quoteOnly
     ? `Hola Logika, quiero una cotización personalizada basada en ${product.name}. Mi espacio mide aproximadamente: `
@@ -57,7 +67,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       <div className="section-shell">
         <Link
           href="/catalogo"
-          className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-text-muted transition hover:text-accent-deep focus:outline-none focus:ring-2 focus:ring-accent"
+          className="mb-4 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-text-muted transition hover:text-accent-deep focus:outline-none focus:ring-2 focus:ring-accent"
         >
           <ArrowLeft size={17} /> Volver al catálogo
         </Link>
@@ -69,8 +79,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
             productName={product.name}
           />
 
-          <div className="flex min-w-0 flex-col lg:py-2">
-            <span className="w-fit rounded-full bg-bg-subtle px-3 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-accent-deep">
+          <div className="flex min-w-0 flex-col lg:sticky lg:top-28 lg:self-start lg:py-2">
+            <span className="w-fit rounded-full bg-bg-subtle px-3 py-1.5 text-xs font-semibold text-accent-deep">
               {quoteOnly ? 'Diseño con cotización personalizada' : 'Referencia disponible por pedido'}
             </span>
             <h1 className="mt-5 font-heading text-4xl font-light leading-tight tracking-[-0.025em] text-primary sm:text-5xl">
@@ -78,8 +88,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
             </h1>
             <p className="mt-5 leading-7 text-text-muted">{product.description}</p>
 
-            <div className="mt-7 border-y border-border py-5">
-              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-text-muted">
+            <div className="mt-7 rounded-2xl bg-white p-5">
+              <p className="text-sm text-text-muted">
                 {product.price ? 'Precio' : quoteOnly ? 'Valor del proyecto' : 'Compra'}
               </p>
               <p className="mt-2 font-heading text-2xl font-semibold text-primary">
@@ -94,19 +104,19 @@ export default async function ProductPage({ params }: ProductPageProps) {
             <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
               <div className="rounded-2xl bg-bg-subtle p-4">
                 <Ruler size={20} className="text-accent-deep" />
-                <p className="mt-2 text-xs font-semibold uppercase tracking-[0.12em] text-text-muted">Medidas</p>
+                <p className="mt-2 text-sm text-text-muted">Medidas</p>
                 <p className="mt-1 text-sm font-medium">{product.dimensions || (quoteOnly ? 'Definidas para tu espacio' : 'Consultar opciones')}</p>
               </div>
               <div className="rounded-2xl bg-bg-subtle p-4">
                 <Clock3 size={20} className="text-accent-deep" />
-                <p className="mt-2 text-xs font-semibold uppercase tracking-[0.12em] text-text-muted">Fabricación</p>
+                <p className="mt-2 text-sm text-text-muted">Fabricación</p>
                 <p className="mt-1 text-sm font-medium">{product.leadTime || 'Tiempo por confirmar'}</p>
               </div>
             </div>
 
             {product.materials.length > 0 && (
               <div className="mt-7">
-                <h2 className="text-sm font-semibold uppercase tracking-[0.14em] text-primary">Materiales</h2>
+                <h2 className="font-heading text-lg font-medium text-primary">Materiales</h2>
                 <ul className="mt-3 space-y-2">
                   {product.materials.map((material) => (
                     <li key={material} className="flex items-center gap-2 text-sm text-text-muted">
@@ -131,6 +141,19 @@ export default async function ProductPage({ params }: ProductPageProps) {
             </p>
           </div>
         </div>
+
+        {related.length > 0 && (
+          <section className="mt-20 sm:mt-28" aria-labelledby="related-title">
+            <h2 id="related-title" className="section-title">
+              Otras piezas que pueden interesarte
+            </h2>
+            <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {related.map((item) => (
+                <ProductCard key={item.id} product={item} />
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </article>
   );

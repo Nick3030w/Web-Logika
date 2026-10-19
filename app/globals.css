@@ -38,7 +38,7 @@ body {
   }
 
   .eyebrow {
-    @apply text-xs font-semibold uppercase tracking-[0.24em] text-accent-deep;
+    @apply text-sm font-semibold text-accent-deep;
   }
 
   .display-title {

@@ -1,0 +1,20 @@
+import { spawn } from 'node:child_process';
+import fs from 'node:fs';
+const proc = spawn('C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe', ['--headless=new','--disable-gpu','--autoplay-policy=no-user-gesture-required','--remote-debugging-port=9340','--user-data-dir='+process.cwd()+'\\.shots\\p','about:blank'],{stdio:'ignore'});
+const sleep=(ms)=>new Promise(r=>setTimeout(r,ms)); await sleep(2500);
+const t=(await (await fetch('http://127.0.0.1:9340/json')).json()).find(x=>x.type==='page');
+const ws=new WebSocket(t.webSocketDebuggerUrl); await new Promise(r=>ws.onopen=r);
+let id=0; const p=new Map(); ws.onmessage=m=>{const d=JSON.parse(m.data); if(d.id&&p.has(d.id)){p.get(d.id)(d.result);p.delete(d.id)}};
+const send=(method,params={})=>new Promise(res=>{const i=++id;p.set(i,res);ws.send(JSON.stringify({id:i,method,params}))});
+const ev=async e=>(await send('Runtime.evaluate',{returnByValue:true,expression:e})).result.value;
+await send('Emulation.setDeviceMetricsOverride',{width:1440,height:900,deviceScaleFactor:1,mobile:false});
+await send('Page.navigate',{url:'http://localhost:3100/'}); 
+await sleep(4000);
+console.log('hero video:', await ev(`(()=>{const v=document.querySelector('section video'); if(!v) return 'NO VIDEO'; return JSON.stringify({src:v.currentSrc.slice(-20),muted:v.muted,loop:v.loop,paused:v.paused,readyState:v.readyState,t:Math.round(v.currentTime*10)/10})})()`));
+let r=await send('Page.captureScreenshot',{format:'png',clip:{x:720,y:120,width:700,height:650,scale:1}}); fs.writeFileSync('.shots/hero-video.png',Buffer.from(r.data,'base64'));
+// sofacama product page
+await send('Page.navigate',{url:'http://localhost:3100/catalogo/sofacama-convertible-duo'}); await sleep(3500);
+console.log('sofacama imgs:', await ev(`[...document.querySelectorAll('[role=region] img, .aspect-\\\\[4\\\\/3\\\\] img')].map(i=>i.currentSrc.slice(-30)).slice(0,4).join(' | ')`));
+console.log('title:', await ev('document.title'));
+r=await send('Page.captureScreenshot',{format:'png'}); fs.writeFileSync('.shots/sofacama.png',Buffer.from(r.data,'base64'));
+ws.close(); proc.kill(); process.exit(0);

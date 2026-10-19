@@ -26,7 +26,7 @@ export default function HybridOfferSection() {
               <span className="grid h-14 w-14 place-items-center rounded-full bg-primary p-3 text-accent transition-transform duration-500 group-hover:rotate-[10deg]">
                 <ShoppingBag size={25} />
               </span>
-              <p className="mt-8 text-xs font-semibold uppercase tracking-[0.2em] text-accent-deep">
+              <p className="mt-8 text-sm font-semibold text-accent-deep">
                 Referencias disponibles
               </p>
               <h3 className="mt-3 font-heading text-3xl font-light">Encuentra un diseño para comprar</h3>
@@ -47,7 +47,7 @@ export default function HybridOfferSection() {
               <span className="grid h-14 w-14 place-items-center rounded-full bg-accent p-3 text-primary transition-transform duration-500 group-hover:rotate-[10deg]">
                 <MessageCircle size={25} />
               </span>
-              <p className="mt-8 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+              <p className="mt-8 text-sm font-semibold text-accent">
                 Proyecto a medida
               </p>
               <h3 className="mt-3 font-heading text-3xl font-light">Diseñemos para tu espacio</h3>

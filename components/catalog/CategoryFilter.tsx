@@ -34,7 +34,7 @@ export default function CategoryFilter() {
 
   return (
     <nav aria-label="Filtrar por categoría">
-      <p className="mb-4 hidden text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-text-muted md:block">
+      <p className="mb-4 hidden text-sm font-semibold text-text-muted md:block">
         Categorías
       </p>
       {/* Fade on the right edge hints there are more chips to scroll (mobile only). */}

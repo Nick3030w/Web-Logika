@@ -1,4 +1,4 @@
-import Link from 'next/link';
+﻿import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowUpRight } from 'lucide-react';
 import { CATEGORIES } from '@/constants/categories';
@@ -29,7 +29,7 @@ export default function CategorySection() {
           </div>
           <Link
             href="/catalogo"
-            className="group inline-flex w-fit items-center gap-2 text-sm font-semibold text-primary focus:outline-none focus:ring-2 focus:ring-accent"
+            className="group inline-flex min-h-11 w-fit items-center gap-2 text-sm font-semibold text-primary focus:outline-none focus:ring-2 focus:ring-accent"
           >
             <span className="link-underline">Ver todo el catálogo</span>
             <ArrowUpRight className="transition duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" size={18} />
@@ -59,7 +59,7 @@ export default function CategorySection() {
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/10 to-transparent transition duration-500 group-hover:from-primary/90" />
                 <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-5 text-white">
                   <div className="transition-transform duration-500 ease-out group-hover:-translate-y-1">
-                    <p className="text-[0.65rem] uppercase tracking-[0.18em] text-white/60">
+                    <p className="text-xs text-white/80">
                       {category.slug === 'medida' ? 'Proyecto personalizado' : 'Colección'}
                     </p>
                     <h3 className="mt-1 font-heading text-2xl font-light">{category.name}</h3>

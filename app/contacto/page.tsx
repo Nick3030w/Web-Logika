@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+﻿import type { Metadata } from 'next';
 import { CalendarDays, MessagesSquare as Instagram, MapPin, MessageCircle } from 'lucide-react';
 import ContactForm from '@/components/contact/ContactForm';
 import { buildWhatsAppUrl } from '@/components/ui/WhatsAppLink';
@@ -19,7 +19,7 @@ export default function ContactoPage() {
     <>
       <header className="bg-primary py-14 text-white sm:py-20">
         <div className="section-shell text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-accent">Hablemos de tu espacio</p>
+          <p className="text-sm font-semibold text-accent">Hablemos de tu espacio</p>
           <h1 className="mx-auto mt-4 max-w-3xl font-heading text-4xl font-light leading-[1.06] tracking-[-0.02em] sm:text-6xl">
             Una conversación es el primer paso para construir algo bien.
           </h1>

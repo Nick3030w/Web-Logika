@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+﻿import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Check, Factory, MessageCircle, Ruler, SwatchBook } from 'lucide-react';
@@ -30,7 +30,7 @@ export default function AmedidaPage() {
       <section className="overflow-hidden bg-primary text-white">
         <div className="section-shell grid min-h-[calc(100svh-var(--header-height))] items-center gap-10 py-16 lg:grid-cols-2">
           <div className="max-w-xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-accent">
+            <p className="text-sm font-semibold text-accent">
               Diseñado para ti
             </p>
             <h1 className="mt-4 font-heading text-5xl font-light leading-[1.02] tracking-[-0.035em] sm:text-6xl">
@@ -137,7 +137,7 @@ export default function AmedidaPage() {
       <section className="section-space bg-bg-subtle">
         <div className="section-shell">
           <div className="overflow-hidden rounded-[2rem] bg-primary px-6 py-12 text-center text-white sm:px-12 sm:py-16">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">Antes de decidir</p>
+            <p className="text-sm font-semibold text-accent">Antes de decidir</p>
             <h2 className="mx-auto mt-4 max-w-3xl font-heading text-3xl font-semibold sm:text-5xl">
               Conoce las telas, los materiales y la forma en que fabricamos.
             </h2>

@@ -1,8 +1,8 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Check, MessageCircle } from 'lucide-react';
 import { buildWhatsAppUrl } from '@/components/ui/WhatsAppLink';
 import { BUSINESS, CUSTOM_QUOTE_MESSAGE } from '@/constants/business';
+import HeroMedia from './HeroMedia';
 
 export default function HeroSlider() {
   const quoteUrl = buildWhatsAppUrl(
@@ -15,7 +15,7 @@ export default function HeroSlider() {
       <div className="absolute inset-0 animate-fade-in bg-brand-glow" />
       <div className="section-shell relative grid min-h-[calc(100svh-var(--header-height))] items-center gap-10 py-12 lg:grid-cols-[0.92fr_1.08fr] lg:py-16">
         <div className="relative z-10 max-w-2xl">
-          <p className="mb-5 animate-fade-up text-xs font-semibold uppercase tracking-[0.24em] text-accent">
+          <p className="mb-5 animate-fade-up text-sm font-semibold text-accent">
             Fabricación propia · Bogotá
           </p>
           <h1 className="animate-fade-up font-heading text-4xl font-light leading-[1.04] tracking-[-0.025em] [animation-delay:120ms] sm:text-5xl lg:text-7xl">
@@ -59,25 +59,18 @@ export default function HeroSlider() {
 
         <div className="relative min-h-[420px] animate-fade-in [animation-delay:200ms] sm:min-h-[560px] lg:min-h-[650px]">
           <div className="absolute inset-0 overflow-hidden rounded-[2rem] bg-white/5">
-            <Image
-              src="/placeholder/hero-1.svg"
-              alt="Sala contemporánea con sofá fabricado por Logika Decoración"
-              fill
-              priority
-              sizes="(max-width: 1024px) 100vw, 55vw"
-              className="animate-slow-zoom object-cover"
+            <HeroMedia
+              videoSrc="/placeholder/hero-1.mp4"
+              posterSrc="/placeholder/hero-1.svg"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-primary/70 via-transparent to-transparent" />
           </div>
-          <div className="absolute -left-4 bottom-6 max-w-[240px] animate-float rounded-2xl border border-white/20 bg-primary/85 p-5 shadow-lift backdrop-blur-md sm:-left-8 sm:bottom-10">
-            <p className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-accent">
-              Tu idea, bien construida
-            </p>
-            <p className="mt-2 text-sm leading-6 text-white/75">
+          <div className="absolute bottom-4 left-4 max-w-[260px] rounded-2xl bg-primary p-5 sm:bottom-8 sm:left-8">
+            <p className="text-sm font-semibold text-accent">Tu idea, bien construida</p>
+            <p className="mt-2 text-sm leading-6 text-white/80">
               Diseño, materiales y proporciones definidos para tu espacio real.
             </p>
           </div>
-          <div className="absolute -right-5 top-8 h-24 w-24 animate-pulse-ring rounded-full border border-accent/40 sm:-right-8 sm:h-32 sm:w-32" />
         </div>
       </div>
     </section>

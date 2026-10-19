@@ -1,4 +1,4 @@
-import Link from 'next/link';
+﻿import Link from 'next/link';
 import { MessagesSquare as Instagram, MapPin, MessageCircle } from 'lucide-react';
 import BrandLogo from '@/components/ui/BrandLogo';
 import { buildWhatsAppUrl } from '@/components/ui/WhatsAppLink';
@@ -32,15 +32,15 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50">
+            <h4 className="text-sm font-semibold text-white/60">
               Navegación
             </h4>
-            <nav aria-label="Navegación del pie" className="mt-5 flex flex-col gap-3">
+            <nav aria-label="Navegación del pie" className="mt-3 flex flex-col">
               {NAV_LINKS.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`${focusStyles} w-fit text-sm text-white/70 transition hover:text-accent`}
+                  className={`${focusStyles} inline-flex min-h-11 w-fit items-center text-sm text-white/70 transition hover:text-accent`}
                 >
                   {link.longLabel ?? link.label}
                 </Link>
@@ -49,7 +49,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50">
+            <h4 className="text-sm font-semibold text-white/60">
               Contacto
             </h4>
             <div className="mt-5 flex flex-col gap-3 text-sm text-white/70">
@@ -57,7 +57,7 @@ export default function Footer() {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`${focusStyles} inline-flex w-fit items-center gap-2 transition hover:text-accent`}
+                className={`${focusStyles} inline-flex min-h-11 w-fit items-center gap-2 transition hover:text-accent`}
               >
                 <MessageCircle size={16} /> WhatsApp
               </a>
@@ -72,7 +72,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50">
+            <h4 className="text-sm font-semibold text-white/60">
               Síguenos
             </h4>
             <div className="mt-5 flex gap-3">

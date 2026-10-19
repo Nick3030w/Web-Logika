@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+﻿import type { Metadata } from 'next';
 import Image from 'next/image';
 import { Award, Check, Factory, Hammer, MessageCircle, SwatchBook } from 'lucide-react';
 import { buildWhatsAppUrl } from '@/components/ui/WhatsAppLink';
@@ -52,7 +52,7 @@ export default function NosotrosPage() {
             </div>
           </div>
           <div className="rounded-[1.5rem] bg-primary p-7 text-white sm:p-9">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">Lo que seleccionamos contigo</p>
+            <p className="text-sm font-semibold text-accent">Lo que seleccionamos contigo</p>
             <ul className="mt-7 space-y-4">
               {MATERIALS.map((material) => (
                 <li key={material} className="flex items-start gap-3 border-b border-white/10 pb-4 text-sm text-white/72 last:border-0">
@@ -67,7 +67,7 @@ export default function NosotrosPage() {
       <section className="section-space bg-primary text-white">
         <div className="section-shell">
           <div className="mx-auto max-w-2xl text-center">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">Nuestro estándar</p>
+            <p className="text-sm font-semibold text-accent">Nuestro estándar</p>
             <h2 className="mt-4 font-heading text-3xl font-light leading-tight tracking-[-0.015em] sm:text-4xl">Calidad que se puede observar y sentir</h2>
           </div>
           <div className="mt-12 grid gap-px overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/10 md:grid-cols-3">

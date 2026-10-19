@@ -71,6 +71,11 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
             </Suspense>
           </aside>
           <div className="min-w-0 flex-1">
+            {products.length > 0 && (
+              <p className="mb-5 text-sm text-text-muted" aria-live="polite">
+                {products.length} {products.length === 1 ? 'pieza' : 'piezas'}
+              </p>
+            )}
             <ProductGrid products={products} />
           </div>
         </div>
