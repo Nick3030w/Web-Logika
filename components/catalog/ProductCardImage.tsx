@@ -46,8 +46,10 @@ export default function ProductCardImage({
     const link = frameRef.current?.closest('a');
     if (!link) return;
     const arm = () => setArmed(true);
-    link.addEventListener('focus', arm);
-    return () => link.removeEventListener('focus', arm);
+    // focusin bubbles (unlike focus), so it fires whether the link itself or a
+    // child receives focus.
+    link.addEventListener('focusin', arm);
+    return () => link.removeEventListener('focusin', arm);
   }, [second]);
 
   const canShowSecond = Boolean(second) && !secondFailed;

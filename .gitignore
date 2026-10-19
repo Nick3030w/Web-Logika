@@ -7,6 +7,9 @@
 # testing
 /coverage
 
+# local inspection / screenshot scratch folder (throwaway browser profiles, PNGs)
+/.shots/
+
 # next.js
 /.next/
 /out/
